@@ -1,0 +1,262 @@
+<div>
+  {% comment %} main slideshow {% endcomment %}
+  <div id="parlour_slide" class="splide">
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          {% if block.type == "slide" %}
+            {% assign splide_image = block.settings.slide_image %}
+            <li class="splide__slide">
+              <img src="{{splide_image | img_url: '3000x1300'}}" alt="{{splide_image.alt}}" class="h-96 w-full object-cover | md:h-500px | xl:h-700px | 2xl:mt-8"/>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% comment %} our parlours {% endcomment %}
+  <div class="relative">
+    <div class="bg-custom-pink h-52 w-150% absolute -left-1/4 -top-24 rounded-100% | md:h-400px"></div>
+    {% assign our_parlours_heading = section.settings.our_parlours_heading %}
+    <div class="flex items-center justify-center bg-custom-pink relative">
+      {% if our_parlours_heading != blank %}
+        <img src="{{our_parlours_heading | img_url: '840x140'}}" alt="{{our_parlours_heading.alt}}" class="object-contain h-10 w-64 | md:w-430px md:h-16"/>
+      {% endif %}
+    </div>
+  </div>
+  {% comment %} maps {% endcomment %}
+  <div class="maps_container bg-custom-pink relative pb-10">
+    <img src="{{'parlours_confetti.png' | asset_url}}" class="absolute object-cover"/>
+    {% for block in section.blocks %}
+      {% if block.type == "text_and_image" %}
+        <div class="indv_map_cont flex my-7 flex-row flex-wrap | md:my-14">
+          {% assign location_name = block.settings.location_name %}
+          {% assign location_desc = block.settings.location_description %}
+          {% assign location_longitude = block.settings.longitude %}
+          {% assign location_latitude = block.settings.latitude %}
+          {% comment %} DO NOT REMOVE -> gets lng & lat so JS can access them {% endcomment %}
+          <p class="longitude hidden">{{location_longitude}}</p>
+          <p class="latitude hidden">{{location_latitude}}</p>
+  
+          <div class="the_map bg-white p-3 flex-80 h-650px rounded-2xl -ml-5 | md:flex-46">
+            <div class="map w-full h-full rounded-2xl" id="map{{forloop.index}}"></div>
+          </div>
+          <div class="content flex-100 px-6 py-5 | md:flex-50 md:px-7 md:py-16 | lg:px-24">
+            {% if location_name != blank %}
+              <img src="{{ location_name | img_url: '1000x400' }}" alt="{{ location_name.alt }}" class="w-500px" />
+            {% endif %}
+            {% if location_desc != blank %}
+              <div class="text-white font-extralight text-sm my-3 | md:text-lg md:max-w-md" style="font-family:'Vag';"> {{ location_desc }} </div>
+            {% endif %}
+            <div class="flex items-center">
+              <img src="{{'menu_and_more.png' | asset_url }}" class="w-auto h-20 object-contain | lg:h-24"/>
+              <img src="{{'parlours_ice_cream.png' | asset_url }}" class="w-auto h-24 object-contain | lg:h-48" /> 
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% comment %} divider section {% endcomment %}
+  <div>
+    {% assign background_image = section.settings.background_image %}
+    {% assign overlap_image = section.settings.overlap_image %}
+    {% assign overlap_image_text = section.settings.overlap_image_text %}
+    {% assign overlap_image_link = section.settings.overlap_image_link %}
+
+    {% assign background_image_text = section.settings.background_image_text %}
+    {% assign background_image_link = section.settings.background_image_link %}
+
+    {% if background_image != blank %}
+      <div class="relative">
+        {% comment %} background image content {% endcomment %}
+        <div class="w-full h-80 object-cover mb-5 overflow-hidden | md:mb-0 md:h-600px">
+          <img src="{{background_image | img_url: '2720x1080'}}" alt="{{background_image.alt}}" class="w-full object-cover object-right h-150% | md:h-full md:object-center"/>
+          <div class="absolute pl-16 bottom-12 | md:bottom-12 md:w-3/5 md:right-0">
+            {% if background_image_text != blank %}
+              <h2 class="text-white text-lg font-extralight py-3 px-7 table bg-custom-pink mb-6 | md:text-2xl | lg:text-4xl" style="font-family:'Vag';">{{ background_image_text }}</h2>
+            {% endif %}
+            {% if background_image_link != blank %}
+              <a href="{{background_image_link}}" class="uppercase font-extralight text-custom-pink text-base bg-white px-7 py-3 border-4 border-custom-blue rounded-lg" style="font-family:'Vag';">Shop Now</a>
+            {% endif %}
+          </div>
+        </div>
+        {% comment %} overlap image content {% endcomment %}
+        <div class="overlap_image h-80 mb-3 | md:mb-0 md:h-full md:absolute md:left-0 top-0 md:w-1/2">
+          {% if overlap_image != blank %}
+            <img src="{{overlap_image | img_url: '788x1051' }}" alt="{{overlap_image.alt}}" class="w-full h-full object-cover"/>
+          {% endif %}
+          <div class="absolute top-36 pl-16 | md:top-auto md:bottom-12 md:w-3/5">
+            {% if overlap_image_text != blank %}
+              <h2 class="text-white text-lg font-extralight py-3 px-7 table bg-custom-blue mb-6 | md:text-2xl | lg:text-4xl" style="font-family:'Vag';"> {{ overlap_image_text }}</h2>
+            {% endif %}
+            {% if overlap_image_link != blank %}
+              <a href="{{overlap_image_link}}" class="uppercase font-extralight text-custom-pink text-base bg-white px-7 py-3 border-4 border-custom-blue rounded-lg" style="font-family:'Vag';">Shop Now</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+    .indv_map_cont:nth-of-type(even){
+      flex-direction: row-reverse;
+    }
+    .indv_map_cont:nth-of-type(even) .the_map{
+      margin-right: -20px;
+    }
+    @media screen and (min-width:768px){
+      .overlap_image{
+        clip-path: polygon(0 0, 100% 0, 75% 100%, 0% 100%);
+      }
+      .overlap_image::after{
+        background: #EF60A3;
+        content: "";
+        position: absolute;
+        right: -50px;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        clip-path: polygon(85% 0, 100% 0, 75% 100%, 60% 100%);
+      }
+    }
+    @media screen and (min-width: 1540px){
+      .overlap_image::after{
+        clip-path: polygon(90% 0, 100% 0, 74% 100%, 65% 100%);
+      }
+    }  
+</style>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2o9UOEgdXm9WKLqq8-kgDHRevyu3HO30&callback=initMap&libraries=&v=weekly"
+  async
+></script>
+<script>
+  $(document).ready(function(){
+    // map configuration
+    initMap = () => {
+      let maps = document.querySelectorAll(".maps_container .map");
+      maps.forEach(map => {
+        let map_lng = map.closest(".indv_map_cont").querySelector(".longitude").innerHTML;
+        let map_lat = map.closest(".indv_map_cont").querySelector(".latitude").innerHTML;
+        let map_location = { lat:parseFloat(map_lat), lng:parseFloat(map_lng)};
+
+        let maps = new google.maps.Map(document.getElementById(map.id), {
+          zoom: 10,
+          center: map_location
+        });
+        let marker = new google.maps.Marker({
+          position: map_location,
+          map: maps,
+        });
+      });
+    }
+
+    if(document.querySelector("#parlour_slide") != null || document.querySelector("#parlour_slide") != undefined){
+      new Splide("#parlour_slide", {
+        type: "loop",
+        pagination: false
+      }).mount();
+    }
+  });
+</script>
+
+<style>
+  #parlour_slide .splide__arrows .splide__arrow{
+    background: none;
+    transform: scale(1.5);
+  }
+  #parlour_slide .splide__arrows .splide__arrow svg path{
+    fill: #FFF;
+  }
+</style>
+{% schema %}
+  {
+    "name": "Parlours",
+    "settings": [
+      {
+        "id": "our_parlours_heading",
+        "label": "our parlours heading",
+        "type": "image_picker"
+      },
+      {
+        "type": "header",
+        "content": "image divider section"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "background image"
+      },
+      {
+        "type": "text",
+        "id": "background_image_text",
+        "label": "background image text"
+      },
+      {
+        "type": "url",
+        "id": "background_image_link",
+        "label": "background image link"
+      },
+      {
+        "type": "image_picker",
+        "id": "overlap_image",
+        "label": "overlap image"
+      },
+      {
+        "type": "text",
+        "id": "overlap_image_text",
+        "label": "overlap image text"
+      },
+      {
+        "type": "url",
+        "id": "overlap_image_link",
+        "label": "overlap image link"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "slide_image",
+            "label": "Slide Image"
+          }
+        ]
+      },
+      {
+        "type": "text_and_image",
+        "name": "Text & Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "location_name",
+            "label": "Location name"
+          },
+          {
+            "type": "text",
+            "id": "location_description",
+            "label": "Location Description"
+          },
+          {
+            "type": "header",
+            "content": "co-ordinates"
+          },
+          {
+            "type": "text",
+            "id": "latitude",
+            "label": "latitude"
+          },
+          {
+            "type": "text",
+            "id": "longitude",
+            "label": "longitude"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %} 

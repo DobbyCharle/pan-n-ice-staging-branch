@@ -1,0 +1,44 @@
+
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+<div class="bg-custom-blue h-44" style="-webkit-clip-path: ellipse(50% 60% at 50% 100%); clip-path: ellipse(50% 60% at 50% 100%);"></div>
+<div class="flex justify-center items-center md:px-24 bg-custom-blue pb-16 xl:pb-48">
+
+  <div x-data="setup()" class="flex flex-col w-full items-center">
+		<ul class="md:flex justify-center items-center my-4">
+			<template x-for="(tab, index) in tabs" :key="index">
+				<li class="cursor-pointer py-2 px-4 border-4 border-primary rounded-xl uppercase text-white mx-2 mb-2 md:mb-0 text-center" style="font-family: 'Vag';"
+					:class="activeTab===index ? 'text-custom-pink bg-white border-custom-pink' : ''" @click="activeTab = index"
+					x-text="tab"></li>
+			</template>
+		</ul>
+
+		<div class="w-full text-center mx-auto h-96">
+			<div x-show="activeTab===0">
+        {% include 'product-feature-included' %}
+      </div>
+			<div x-show="activeTab===1">
+        {% include 'product-feature-howtouse' %}
+      </div>
+			<div x-show="activeTab===2">
+        {% include 'product-feature-inaction' %}
+      </div>
+		</div>
+
+		</div>
+	</div>
+
+</div>
+
+<script>
+	function setup() {
+    return {
+      activeTab: 0,
+      tabs: [
+          "What's included",
+          "How to use",
+          "In Action",
+      ]
+    };
+  };
+</script>

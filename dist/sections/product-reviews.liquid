@@ -1,0 +1,130 @@
+<div class="bg-primary">
+<section class="py-16 mx-auto container px-10 md:px-0">
+  <div class="flex w-full mb-10">
+    <img class="block md:ml-12" src="https://cdn.shopify.com/s/files/1/0575/8104/3868/files/Artboard_f94a3641-f63a-410f-9d49-399e40fd95c8.png?v=1628835270" alt="">
+  </div>
+  <div>
+    <div>
+
+    </div>
+    <div class="hidden">
+      <a class="flex flex-col justify-center items-center mx-auto mt-16 rounded-xl bg-transparent hover:bg-white border-white border-4 text-white px-6 h-14 text-center uppercase" style="font-family:'Vag';" href="{{section.settings.cta_url}}">{{section.settings.cta}}</a>
+    </div>
+  </div>
+
+  <div class="relative">
+    <div class="prev absolute">
+      {% include 'arrow-left-white' %}
+    </div>
+    <div class="next absolute">
+      {% include 'arrow-right-white' %}
+    </div>
+    <div class="reviews mx-auto flex">
+      {% for block in section.blocks %}
+          <div class="px-6">
+            <img src="{{ block.settings.image | img_url: '600x' }}"
+              srcset="{{ block.settings.image | img_url: '600x' }} 1x,
+                      {{ block.settings.image | img_url: '600x', scale: 2 }} 2x,
+                      {{ block.settings.image | img_url: '600x', scale: 3 }} 3x"
+              loading="lazy" alt="{{block.settings.alt}}"
+              class="h-44 md:h-56 lg:h-80 object-contain rounded-2xl">
+            <div class="my-4 flex">
+              <span class="mr-2">{% include 'star-blue' %}</span>
+              <span class="mr-2">{% include 'star-blue' %}</span>
+              <span class="mr-2">{% include 'star-blue' %}</span>
+              <span class="mr-2">{% include 'star-blue' %}</span>
+              <span class="mr-2">{% include 'star-blue' %}</span>
+            </div>
+            <div class="flex">
+              <span class="mr-5 text-white tracking-wider" style="font-family:'Vag';">{{block.settings.name}}</span>
+              <span class="text-white">{{block.settings.date}}</span>
+            </div>
+            <!-- <div class="w-1/3"> -->
+              <p class="text-white tracking-wider w-56 mt-2" style="font-family:'Vag'; word-wrap: break-word;">{{block.settings.review}}</p>
+            <!-- </div> -->
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+
+
+
+</section>
+
+</div>
+{% schema %}
+{
+  "name": "Events - About",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "CTA"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Link"
+    }
+  ],
+  "blocks":[
+  {
+    "type": "item",
+    "name": "Review Item",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "name",
+        "label": "Name"
+      },
+      {
+        "type": "text",
+        "id": "date",
+        "label": "date"
+      },
+      {
+        "type": "range",
+        "id": "stars",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "default": 5,
+        "label": "Stars"
+      },
+      {
+        "type": "text",
+        "id": "review",
+        "label": "Your Review"
+      }
+    ]
+  }]
+}
+{% endschema %}
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+<script>
+   $(document).ready(function(){
+    $('.reviews').slick({
+      dots: false,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 1,
+      centerMode: false,
+      variableWidth: true,
+      prevArrow: $('.prev'),
+      nextArrow: $('.next')
+    });
+  });
+</script>

@@ -1,0 +1,40 @@
+{
+  "name": "pan-n-ice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --watch --mode development",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:tailwind": "npx tailwindcss build src/css/application.css -o src/assets/application.css.liquid && theme deploy",
+    "watcher": "theme watch --allow-live"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@shopify/theme-sections": "^4.1.1",
+    "@splidejs/splide": "^2.4.21",
+    "@tailwindcss/forms": "^0.3.2",
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^2.2.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "autoprefixer": "^10.3.2",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.2.0",
+    "postcss": "^8.3.6",
+    "postcss-import": "^14.0.2",
+    "postcss-loader": "^6.1.1",
+    "postcss-preset-env": "^6.7.0",
+    "style-loader": "^3.2.1",
+    "tailwindcss": "^2.2.7",
+    "webpack": "^5.49.0",
+    "webpack-cli": "^4.7.2"
+  }
+}

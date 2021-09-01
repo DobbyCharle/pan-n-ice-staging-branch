@@ -1,0 +1,74 @@
+<img src="{{ featured_image_two | img_url: '360x360' }}"
+          loading="lazy" alt=""
+          class="block mx-auto w-36 h-36 object-contain">
+          <span class="text-white uppercase text-sm tracking-wider text-center w-full block" style="font-family:'Vag';">{{ producttwo.title | default: onboarding_title }}</span>
+          
+          <form action="/cart/add" method="post" enctype="multipart/form-data">
+            {% unless producttwo.has_only_default_variant %}
+              {% for option in producttwo.options_with_values %}
+                <div class="selector-wrapper js invisible hidden">
+                  <label for="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}">
+                    {{ option.name }}
+                  </label>
+      
+                  <select
+                    id="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}"
+                    data-single-option-selector
+                    data-index="option{{ option.position }}">
+                    {% for value in option.values %}
+                      <option
+                        value="{{ value | escape }}"
+                        {% if option.selected_value == value %}selected="selected"{% endif %}>
+                          {{ value }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            {% endunless %}
+      
+            <select name="id" class="no-js invisible hidden" data-product-select>
+              {% for variant in producttwo.variants %}
+                <option
+                  {% if variant == producttwo.selected_or_first_available_variant %}selected="selected"{% endif %}
+                  {% unless variant.available %}disabled="disabled"{% endunless %}
+                  value="{{ variant.id }}">
+                    {{ variant.title }}
+                </option>
+              {% endfor %}
+            </select>
+      
+            <input class="invisible hidden" type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1">
+      
+            <div data-price-wrapper>
+              <span data-product-price class="text-white uppercase text-sm tracking-wider text-center w-full block" style="font-family:'Vag';">
+                {{ current_variant.price | default: '1999' | money }}
+              </span>
+      
+              <div class="invisible hidden">
+                {% if producttwo.compare_at_price_max > producttwo.price %}
+                <s data-compare-price>
+                  {% if current_variant.compare_at_price > current_variant.price %}
+                  {{ current_variant.compare_at_price | money }}
+                  {% endif %}
+                </s>
+                {% endif %}
+              </div>
+            </div>
+      
+            <button
+            class="invisible hidden"
+              type="submit"
+              name="add"
+              data-add-to-cart
+              {% unless producttwo.available %}disabled="disabled"{% endunless %}
+              {% if section_onboarding %}disabled="disabled"{% endif %}>
+                <span data-add-to-cart-text>
+                  {% if producttwo.available %}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {% else %}
+                    {{ 'products.product.sold_out' | t }}
+                  {% endif %}
+                </span>
+            </button>
+          </form>

@@ -1,0 +1,21 @@
+<div class="mt-16 mb-6">
+  <img src="{{ section.settings.image | img_url: '1024x' }}"
+          srcset="{{ section.settings.image | img_url: '1024x' }} 1x,
+                  {{ section.settings.image | img_url: '1024x', scale: 2 }} 2x,
+                  {{ section.settings.image | img_url: '1024x', scale: 3 }} 3x"
+          loading="lazy" alt=""
+          class="w-full object-cover">
+</div>
+
+{% schema %}
+{
+  "name": "Blog Hero Image",
+  "settings": [
+  {
+    "type": "image_picker",
+    "id": "image",
+    "label": "Image"
+  }
+ ]
+}
+{% endschema %}

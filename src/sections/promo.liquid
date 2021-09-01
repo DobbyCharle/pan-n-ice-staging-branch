@@ -1,0 +1,83 @@
+<div style="background-color:{{section.settings.sec-color}}" class=" flex relative text-center items-center mx-auto px-3 py-2" >
+  <div id="promo_slider" class="splide AnnouncmentSlider w-full text-center  mx-auto">
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          <li class="splide__slide">
+            <p class="text-sm VentiBlack font-black text-white text-center uppercase w-full">{{block.settings.Announcement}}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div> 
+</div>
+<script>
+  $(document).ready(function() {
+    if(document.querySelector("#promo_slider") != null || document.querySelector("#promo_slider") != undefined){
+      new Splide("#promo_slider", {
+        type: "loop",
+        perPage: 4,
+        autoplay: true,
+        interval: 2500,
+        pagination: false,
+        arrows: false,
+        breakpoints: {
+          1200: {
+            perPage: 3
+          },
+          800: {
+            perPage: 2,
+            interval: 1800
+          },
+          550: {
+            perPage: 1,
+            interval: 1800
+          }
+        }
+      }).mount();
+    }
+});
+</script>
+
+{% schema %}
+  {
+    "name": "Promo posts",
+    "settings": [
+    {
+      "type": "color",
+      "id": "sec-color",
+      "label": "Promo color",
+      "default": "#333333"
+    }
+  
+    ], 
+  "blocks": [
+    {
+      "type": "select",
+      "name": "Icons",
+      "settings": [    
+      {
+            "type": "textarea",
+            "id": "Announcement",
+            "default": "Announcement MSG!",
+            "label": "Welcome message"
+          }, 
+      
+        {
+          "id": "link",
+          "type": "url",
+          "label": "Button link"
+        }
+        
+      ]
+    }
+  ]
+  
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

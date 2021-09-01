@@ -1,0 +1,39 @@
+
+<!-- <div class="top_banner" style="background-image:url('{{collection.featured_image | img_url: 'master'}}">
+ {% include 'collectionSvg' %}  
+</div> -->
+{% section 'collection-hero' %}
+<div class="CollectionHolder relative">
+  <div class="bg-white h-32 w-150% absolute -left-1/4 -top-24 rounded-100% | md:h-full"></div>
+  <img src="{{ 'collection_background_confetti.png' | asset_url }}" alt="confetti" class="absolute object-cover h-full | md:h-auto" />
+  {% paginate collection.products by 6 %}
+    <div class="grid gap-10 grid-cols-1 grid-flow-row | md:grid-cols-3 p-10">
+    {% for product in collection.products %}
+      <div class="text-center relative flex flex-col items-center | md:justify-between ">
+        <a href="{{ product.url | within: collection }}">
+          <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="object-contain md:h-64">
+        </a>
+        <div class="mt-5 flex flex-col text-center items-center justify-center">
+        <a class="text-custom-blue font-bold text-xl leading-6 text-center" href="{{ product.url | within: collection }}">{{ product.title }}</a>
+        <a href="" class="text-custom-blue font-bold text-xl leading-6 text-center mt-3"> {{product.price | money }} </a>
+      </div>
+        {% unless product.available %}<br><strong style="color:#EF60A3;" class="absolute top-0 right-0 uppercase">sold out</strong>{% endunless %}
+        <form method="post" action="/cart/add">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+          <input type="hidden"  min="1" type="number" id="quantity" name="quantity" value="1"/>
+          <div class="flex flex-row w-4/5 mx-auto justify-between pt-5 gap-3 | md:items-center md:flex-col | lg:flex-row">
+            <input type="submit" value="Add To Bag" class="w-40 font-bold text-custom-pink py-2 border-4 bg-white border-custom-pink text-sm rounded-lg uppercase cursor-pointer" />
+            <a href="{{product.url}}" class="w-40 font-bold bg-custom-pink py-3 text-white uppercase rounded-lg text-sm cursor-pointer">View Details</a>
+          </div>
+        </form>    
+      </div>
+    {% else %}
+      <p>no matches</p>
+    {% endfor %}
+    </div>
+  </div>
+  {% if paginate.pages > 1 %}
+    {{ paginate | default_pagination }}
+  {% endif %}
+{% endpaginate %}
+{% section 'collection_reviews' %}

@@ -1,0 +1,46 @@
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-0 md:gap-12 px-10 md:px-20 pt-20 pb-16 bg-primary">
+  {% for block in section.blocks %}
+    <div>
+      <img src="{{ block.settings.image | img_url: '800x' }}"
+      srcset="{{ block.settings.image | img_url: '800x' }} 1x,
+              {{ block.settings.image | img_url: '800x', scale: 2 }} 2x,
+              {{ block.settings.image | img_url: '800x', scale: 3 }} 3x"
+      loading="lazy" alt="{{ block.settings.cta | default: block.settings.cta | escape }}"
+      class=" w-full rounded-3xl object-cover">
+      <div class="w-full relative -top-6">
+        <a style="font-family:'Vag'" class="flex tracking-wider mx-auto justify-center items-center h-12 w-36 lg:w-64 border-4 text-primary border-secondary bg-white hover:bg-secondary text-bg rounded-xl uppercase text-sm md:text-base lg:text-2xl" href="{{ block.settings.cta_url }}">{{ block.settings.cta }}</a>
+      </div>
+    </div>
+    {% endfor %}
+</section>
+
+{% schema %}
+{
+  "name": "Blog Footer",
+  "settings": [],
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "cta",
+          "label": "CTA"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "CTA Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

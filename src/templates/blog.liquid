@@ -1,0 +1,90 @@
+<div class="absolute w-full h-2/4" style="background: url(https://cdn.shopify.com/s/files/1/0575/8104/3868/files/left-bg-blog.png?v=1628593510) left top no-repeat, url(https://cdn.shopify.com/s/files/1/0575/8104/3868/files/right-bg-blog.png?v=1628593510) right top no-repeat"></div>
+<div class="bg-custom-pink pt-16 xl:pt-32">
+  <img class="mx-auto" src="https://cdn.shopify.com/s/files/1/0575/8104/3868/files/our-blog.png?v=1628589095" alt="Our Blog">
+  
+  {% section 'blog-hero-img' %}
+  
+  {% paginate blog.articles by 6 %}
+    <div class="container mx-auto">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 md:gap-12 px-10 md:px-20 pt-20 pb-16 bg-primary">
+      {% for article in blog.articles %}
+        <div class="mb-10">
+          <div class="service-square w-full">
+            <div class="service-card-content absolute w-full h-full">
+              <img src="{{ article.image | img_url: '800x' }}"
+                srcset="{{ article.image | img_url: '800x' }} 1x,
+                        {{ article.image | img_url: '800x', scale: 2 }} 2x,
+                        {{ article.image | img_url: '800x', scale: 3 }} 3x"
+                loading="lazy" alt="{{ article.title | default: article.title | escape }}"
+                class="object-cover w-full h-full rounded-xl">
+            </div>
+          </div>
+          <h2 class="uppercase text-3xl mb-4 mt-12 text-white" style="font-family:'Vag'">{{ article.title }}</h2>
+          <p class="font-light text-base text-dark leading-loose" style="color:#483729; font-family:'ProximaNova';">
+            {% if article.excerpt.size > 0 %}
+              {{ article.excerpt }}
+            {% else %}
+              <p>{{ article.content | strip_html | truncatewords: 100 }}</p>
+            {% endif %}
+          </p>
+          <a href="{{ article.url }}" class="uppercase underline hover:no-underline text-white text-lg block mt-5" style="font-family:'Vag'">Read more</a>
+        </div>
+      {% endfor %}
+    </section>
+
+    {%- if paginate.pages > 1 -%}
+    <nav role="navigation" class="flex w-full justify-center">
+      <ol class="flex">
+        {%- if paginate.previous-%}
+          <li>
+            <a href="{{ paginate.previous.url }}">
+              <span aria-hidden="true" class="text-white mr-2 text-2xl" style="font-family:'Vag';">&laquo;</span>
+            </a>
+          </li>
+        {%- else -%}
+          <li class="disabled">
+            <span aria-hidden="true" class="text-white opacity-50 mr-2 text-2xl" style="font-family:'Vag';">&laquo;</span>
+          </li>
+        {%- endif -%}
+
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}
+            <li class="mx-2 flex justify-center items-center">
+              <a href="{{ part.url }}" class="text-white" style="font-family:'Vag';">
+                {{ part.title }}
+              </a>
+            </li>
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+              <li class="active text-secondary mx-2 flex justify-center items-center" aria-current="page" style="font-family:'Vag';">
+                {{ part.title }}
+              </li>
+            {%- else -%}
+              <li class="text-white mx-2 flex justify-center items-center" style="font-family:'Vag';">
+                {{ part.title }}
+              </li>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if paginate.next -%}
+          <li>
+            <a href="{{ paginate.next.url }}">
+              <span aria-hidden="true" class="text-white ml-2 text-2xl" style="font-family:'Vag';">&raquo;</span>
+            </a>
+          </li>
+        {%- else -%}
+          <li class="disabled">
+            <span aria-hidden="true" class="text-white ml-2 opacity-50 text-2xl" style="font-family:'Vag';">&raquo;</span>
+          </li>
+        {%- endif -%}
+      </ol>
+    </nav>
+  {%- endif -%}
+
+  </div>
+{% endpaginate %}
+
+</div>
+
+{% section 'blog-footer' %}

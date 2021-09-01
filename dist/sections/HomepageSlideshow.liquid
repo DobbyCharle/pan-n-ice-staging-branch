@@ -1,0 +1,137 @@
+
+<div class="Slideshow id{{section.id}}">
+  <div class="splide" id = "homeSplide">
+    <div class="relative block min-h-fullpx">
+      {% assign image_blocks = section.blocks | where: 'type', 'select' %}
+      {% assign background_image = section.settings.background_image %}
+      {% assign background_image_mobile = section.settings.background_image_mobile %}
+      <div class="splide__track">
+        <img src="{{background_image | img_url:'2800x1300'}}" alt="{{background_image.alt}}" class="w-full object-cover{% if background_image_mobile != blank %} hidden {% endif %} | md:block md:h-700px | 2xl:h-800px"/>
+        <img src="{{background_image_mobile | img_url:'2800x1300'}}" alt="{{background_image_mobile.alt}}" class="w-full object-cover h-800px | custom-mobile:h-auto | custom-tablet:hidden"/>
+
+        <ul class="splide__list absolute top-0">
+          {% for block in image_blocks %} 
+            <li class="splide__slide">
+              <div class="flex items-center justify-center h-full | md:h-auto md:mt-24">
+                <div class="max-width-1600 section-padding-x flex flex-col items-center justify-evenly w-full gap-10 | md:flex-row">
+                  {% if block.settings.slideImage2 != blank %}
+                    <div class="flex-50"> 
+                      <img class="mx-auto" src="{{block.settings.slideImage2  | img_url: '650x650' }}"/>
+                    </div>
+                  {% endif %}
+                <div class="flex-50"> 
+                  <img src="{{block.settings.slideImageOutline | img_url: '600x600' }}" class="mb-5"/>
+                  <p class="mx-auto text-white mb-5 font-extralight ml-0 w-4/5 text-lg"  style="font-family:'Vag';">{{block.settings.textBelowImage}}</p>
+                  {% include 'start' %}
+                  <a class="text-sm bg-white px-8 border-4 border-custom-blue rounded-xl text-custom-pink font-extralight uppercase py-3 | md:text-base" href=""  style="font-family:'Vag';">{{block.settings.linktext}}</a>
+                </div>
+                </div>  
+              </div> 
+            </li>
+          {% endfor %} 
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .Slideshow .splide__arrow{
+    background: none;
+    transform: scale(1.5);
+  }
+  .Slideshow .splide__arrow.splide__arrow--next{
+    right: 0;
+  }
+  .Slideshow .splide__arrow.splide__arrow--prev{
+    left: 0;
+  }
+  .Slideshow .splide__arrow svg{
+    fill: #FFF;
+  }
+  @media screen and (min-width:768px){
+    .Slideshow .splide__arrow.splide__arrow--next{
+    right: 8px;
+    }
+    .Slideshow .splide__arrow.splide__arrow--prev{
+      left: 8px;
+    }
+  }
+</style>
+      
+{% schema %}
+{
+  "name": "Slideshow",
+  "settings": [
+  {
+    "type": "color",
+    "id": "colorButton",
+    "label": "Button Background Color",
+    "default": "#e5e5e5"
+  },
+  {
+    "type": "image_picker",
+    "label": "Background Image",
+    "id": "background_image"
+  },
+  {
+    "type": "image_picker",
+    "label": "Background Image (mobile)",
+    "id": "background_image_mobile",
+    "info": "If this is left blank, the desktop image will be used instead"
+  }
+ ], 
+"blocks": [
+  {
+    "type": "select",
+    "name": "Add Slide",
+    "settings": [
+
+      {
+        "id": "link",
+        "type": "url",
+         "label": "Button link"
+      },
+      {
+        "type": "image_picker",
+        "id": "slideImage2",
+        "label": "Ice Cream Image recommended size 450w x 500h px;"
+      },
+      {
+        "type": "image_picker",
+        "id": "slideImageOutline",
+        "label": "Outline Image recommended size 589w × 187h px;"
+      },
+      {
+         "type": "textarea",
+         "id": "textBelowImage",
+         "default": "Welcome to my shop!",
+         "label": "Text Info Slide"
+      },
+      {
+        "id": "linktext",
+        "type": "text",
+        "label": "Button text",
+        "default": "Click here"
+      }
+    ]
+  }
+],
+"presets": [
+  {
+    "category": "Slideshow",
+    "name": "Slideshow",
+    "settings": {
+}
+  }
+]
+
+}
+{% endschema %}
+      
+      {% stylesheet %}
+      {% endstylesheet %}
+      
+      {% javascript %}
+      {% endjavascript %}
+      

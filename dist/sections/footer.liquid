@@ -1,0 +1,316 @@
+<div class="Footer pt-10 pb-10 flex flex-col">
+
+  <!-- Top Container Menus Footer -->
+<div class="footer_container max-width-1600 section-padding-x w-full flex pb-5 pt-5 items-center justify-between gap-6 flex-col | custom-tablet-large:flex-row">
+  {% comment %} logo {% endcomment %}
+  <div class="mb-14 | custom-tablet-large:mb-0">
+    <a href="/">
+      <div class="block">
+        <img src="{{ section.settings.footer_logo_image | img_url:'600x350' }}" alt="{{section.settings.footer_logo_image.alt}}" class="w-52 h-28 object-contain"/>
+      </div>
+    </a>
+  </div>
+
+<div class="w-full | custom-tablet-large:w-auto">
+  {% comment %} newsletter {% endcomment %}
+  <div class="w-full | custom-tablet-large:w-auto">
+    {% form 'customer' %}
+    {{ form.errors | default_errors }}
+    {% if form.posted_successfully? %}
+      <p style="font-family:'Vag';">Thank you, you are now subscribed to our newsletter!</p>
+    {% else %}
+    <h1 class="formHeading pb-3 font-extralight text-xl" style="font-family:'Vag';">{{section.settings.footerTitle}}</h1>
+
+    <div class="formHolderFooter flex flex-col gap-4 | custom-tablet-large:flex-row">
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input  type="email"
+        name="contact[email]"
+        id="Email"
+        class="mr-3 h-11 border-custom-pink border-2 rounded-xl pl-5 placeholder-black text-sm font-thin | custom-tablet-large:w-64"
+        value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+        placeholder="Email address"
+        autocorrect="off"
+        autocapitalize="off"
+        style="font-family:'Vag';"
+        >
+      <button  type="submit" name="commit" id="Subscribe" class="uppercase font-bold text-white bg-custom-pink rounded-xl py-2 w-28 | custom-tablet-large:ml-2">
+        Sign up
+      </button>
+    </div>
+    {% endif %}
+  {% endform %}
+     </div>
+</div>
+
+{% comment %} right menu {% endcomment %}
+<div class="w-full flex flex-col | custom-tablet-large:w-auto">
+  {%- assign footer_linklist = section.settings.footer_linklist -%}
+  {% if linklists[footer_linklist].links.size > 0 %}
+    <div class="order-3 mt-10 pb-5 border-b border-black | custom-tablet-large:border-none custom-tablet-large:pb-0 custom-tablet-large:mt-0 custom-tablet-large:order-none">
+      <div class="footer_tab flex items-center justify-between relative | custom-tablet-large:mb-5 custom-tablet-large:hidden" data-tab="company"> 
+        <h2 class="text-lg uppercase font-extralight" style="font-family:'Vag';">Company</h2>
+        <div class="icon_container absolute right-0">
+          <div class="plus_icon transition duration-200">
+            {% render 'icon' with 'plus' %}
+          </div>
+          <div class="minus_icon transition duration-200 opacity-0 absolute top-1/2 transform -rotate-90">
+            {% render 'icon' with 'minus' %}
+          </div>
+        </div>
+      </div>
+      <ul class="footer_list hidden flex-wrap flex-col gap-5 pt-5 | custom-tablet-large:pt-0 custom-tablet-large:flex custom-tablet-large:flex-row" data-container="company">
+        {% for link in linklists[footer_linklist].links %}
+          <li class="pr-5 uppercase font-extralight text-sm | custom-tablet-large:font-extralight custom-tablet-large:text-lg custom-tablet-large:inline" style="font-family:'Vag';"><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+<!-- Social icons -->
+<div class="socialIcons w-1/2 flex flex-row items-center justify-between pt-5 ">
+  {% if section.settings.button_link_in != blank %}
+    {%include 'insta' %}
+  {%endif%}
+    {% if section.settings.button_link_fb != blank %}
+  {%include 'fb' %}
+  {%endif%}
+  {% if section.settings.button_link_tw != blank %}
+    {%include 'twit' %}
+  {%endif%}
+  {% if section.settings.button_link_yb != blank %}
+    {%include 'yb' %}
+  {%endif%}
+</div>
+</div>
+
+</div>
+  <!-- Bottom Container Menus Footer -->
+
+<div class="footer_container mt-7 custom-tablet-large:border-t custom-tablet-large:border-custom-pink custom-tablet-large:p-5 custom-tablet-large:pt-10">
+  <div class="max-width-1600 section-padding-x w-full mx-auto text-center">
+    {%- assign footer_linklist1 = section.settings.footer_linklist1 -%}
+    {% if linklists[footer_linklist1].links.size > 0 %}
+    <div class="border-b border-black pb-5 | custom-tablet-large:border-none">
+      <div class="footer_tab flex items-center justify-between | custom-tablet-large:mb-5 relative | custom-tablet-large:hidden" data-tab="support"> 
+        <h2 class="text-lg uppercase font-extralight" style="font-family:'Vag';">Support </h2>
+        <div class="icon_container absolute right-0">
+          <div class="plus_icon transition duration-200">
+            {% render 'icon' with 'plus' %}
+          </div>
+          <div class="minus_icon transition duration-200 transform -rotate-90 opacity-0 absolute top-1/2">
+            {% render 'icon' with 'minus' %}
+          </div>
+        </div>
+      </div>
+      <ul class="footer_list flex-col text-left gap-5 hidden pt-5 | justify-end custom-tablet-large:pt-0 custom-tablet-large:flex custom-tablet-large:text-center custom-tablet-large:flex-row" data-container="support">
+        {% for link in linklists[footer_linklist1].links %}
+          <li class="inline uppercase font-extralight text-sm | custom-tablet-large:font-extralight custom-tablet-large:text-lg" style="font-family:'Vag';"><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    </div>
+   <!-- PaymentIcons -->
+   <div class="max-width-1600 section-padding-x payment_icons_holder w-full flex-col pt-10 pb-5 flex items-start | custom-tablet-large:items-end ">
+    <p class="w-80 text-sm pb-5">{{section.settings.addressArea}}</p>
+    {% if section.settings.show_announcement == true %}
+      <div class="icons flex flex-row flex-wrap justify-between w-80 items-center">
+      {% include 'visa' %}
+      {% include 'apPay' %}
+      {% include 'apex' %}
+      {% include 'gpay' %}
+      {% include 'ms' %}
+      {% include 'opay' %}
+   {% endif %}
+  </div>
+</div>
+  </div>
+</div>
+  
+</div>
+
+<script>
+  $(document).ready(function(){
+    let footer_tab = $(".footer_tab");
+    let footer_list = $(".footer_list");
+    if($(window).width() <= 950){
+      footer_tab.each(function(){
+        $(this).on("click", function(){
+          let footer_tab_data_attr = $(this).data("tab");
+          let footer_this = $(this);
+          footer_list.each(function(){
+            let footer_list_data_attr = $(this).data("container");
+            if(footer_tab_data_attr == footer_list_data_attr){
+              let footer_list_this = $(this);
+              $(this).parents(".footer_container").siblings(".footer_container").find(".footer_list").removeClass("active");
+
+              $(this).parents(".footer_container").siblings(".footer_container").find(".plus_icon").removeClass("rotate");
+              $(this).parents(".footer_container").siblings(".footer_container").find(".minus_icon").removeClass("rotate");
+              setTimeout(function(){
+                footer_list_this.parents(".footer_container").siblings(".footer_container").find(".plus_icon").removeClass("hide");
+              },200);
+              
+              if($(this).hasClass("active")){
+                $(this).removeClass("active");
+                $(this).siblings(".footer_tab").find(".plus_icon").removeClass("rotate");
+                $(this).siblings(".footer_tab").find(".minus_icon").removeClass("rotate");
+                setTimeout(function(){
+                  footer_list_this.siblings(".footer_tab").find(".plus_icon").removeClass("hide");
+                },200);
+              } else {
+                $(this).addClass("active");
+                $(this).siblings(".footer_tab").find(".plus_icon").addClass("rotate");
+                $(this).siblings(".footer_tab").find(".minus_icon").addClass("rotate");
+                setTimeout(function(){
+                  footer_list_this.siblings(".footer_tab").find(".plus_icon").addClass("hide");
+                },100);
+              }
+            }
+          });
+        });
+      });
+    }
+  });
+</script>
+
+<style>
+  .footer_list.active{
+    display: flex;
+  }
+  .plus_icon.rotate{
+    transform: rotate(180deg);
+  }
+  .plus_icon.hide{
+    opacity: 0;
+  }
+  .minus_icon{
+    
+  }
+  .minus_icon.rotate{
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+
+    {
+      "type": "color",
+      "id": "sec-color",
+      "label": "Body Newsletter color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "text-color",
+      "label": "Newsletter Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "image_picker",
+      "id": "footer_logo_image",
+      "label": "Footer logo image"
+    },
+    {
+      "type": "color",
+      "id": "btn-color",
+      "label": "Newsletter Button BG Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "btn-text-color",
+      "label": "Newsletter Button Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "text",
+      "id": "footerTitle",
+      "default": "Welcome to my shop!",
+      "label": "Welcome message"
+   },
+  
+   {
+      "type": "textarea",
+      "id": "infoTitle",
+      "default": "Sign Up To Our Mailing List",
+      "label": "Welcome message"
+   },
+   {
+    "type": "text",
+    "id": "informationNews",
+    "default": "Welcome to my shop!",
+    "label": "Welcome message"
+ },
+
+    {
+      "type": "text",
+      "id": "footer_linklist_title",
+      "default": "Quick links",
+      "label": "Heading"
+   }, 
+   {
+    "type": "color",
+    "id": "background_color_footer",
+    "label": "Footer Background color",
+    "default": "#ffffff"
+ },
+ {
+  "type": "color",
+  "id": "background_color_links",
+  "label": "Footer Links color",
+  "default": "#ffffff"
+},
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "First menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_linklist1",
+        "label": "Second menu",
+        "default": "footer"
+      },
+      {
+        "type": "url",
+        "id": "button_link_in",
+        "label": "LinkedIn Page link"
+      },
+      {
+        "type": "url",
+        "id": "button_link_fb",
+        "label": "Facebook Page link"
+      },
+      {
+        "type": "url",
+        "id": "button_link_tw",
+        "label": "Twitter Page link"
+      },
+      {
+        "type": "url",
+        "id": "button_link_yb",
+        "label": "Youtube Page link"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show payment icons",
+        "default": true
+      },
+   {
+    "type": "textarea",
+    "id": "addressArea",
+    "default": "Pan N Ice Address",
+    "label": "Address Info"
+ }
+      
+      
+    ]
+  }
+
+{% endschema %}

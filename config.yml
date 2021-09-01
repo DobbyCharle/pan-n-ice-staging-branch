@@ -1,0 +1,15 @@
+development:
+  password: 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
+  theme_id: 125700079772
+  store: pan-n-ice-store.myshopify.com
+  directory: "./src"
+  ignore_files: 
+    - config/settings_data.json
+
+staging:
+  password: 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
+  theme_id: "125855137948"
+  store: pan-n-ice-store.myshopify.com
+  directory: "./dist"
+  ignore_files: 
+    - config/settings_data.json 

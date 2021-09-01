@@ -1,0 +1,70 @@
+{% assign main_image = section.settings.image %}
+{% assign title_image = section.settings.title_image %}
+{% assign title_image_mobile = section.settings.title_image_mobile %}
+{% assign desc = section.settings.desc %}
+{% assign background_image = section.settings.background_image %}
+<div class="relative bg-custom-pink h-650px | sm:h-700px | xl:h-900px">
+  {% if background_image != blank %}
+    <div class="relative h-full">
+      <img src="{{background_image | img_url: '2300x2500'}}" alt="{{background_image.alt}}" class="h-full object-cover"/>
+      <div class="background_cover absolute top-0 right-0 h-full w-full bg-custom-pink | md:w-5/6"></div>
+    </div>
+  {% endif %}
+  <div class="pt-12 w-full absolute top-0 | md:top-16">
+    <div class="max-width-1600 section-padding-x flex items-center flex-col | md:flex-row">
+      <img src="{{ main_image | img_url: '1600x1000' }}" loading="lazy" alt="{{main_image.alt}}" class="object-contain h-auto w- w-11/12 | md:h-500px md:w-3/5">
+      <div class="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto text-center | md:px-10">
+        <img src="{{title_image | img_url: '700x400'}}" alt="{{title_image.alt}}" class="object-contain mt-10 w-52 mx-auto {% if title_image_mobile != blank %} hidden {% endif %} | md:block md:mx-0 md:mt-0 md:w-96 md:h-52"/>
+        <img src="{{title_image_mobile | img_url: '700x400'}}" alt="{{title_image_mobile.alt}}" class="object-contain mt-10 w-9/12 mx-auto | sm:w-8/12 | md:hidden"/>
+        {% if desc != blank %}
+          <div class="text-white font-extralight text-base leading-7 mt-5 text-center | md:text-left md:mt-0 md:text-lg md:leading-8 | lg:w-4/5" style="font-family:'Vag';">{{ desc }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <style>
+    @media screen and (min-width: 768px){
+      .background_cover{
+        clip-path: polygon(29% 3%, 100% 0, 100% 100%, 100% 100%, 100% 100%, 75% 84%, 63% 100%, 20% 85%, 33% 71%, 9% 47%);
+      }
+    }
+    @media screen and (max-width: 768px){
+      .background_cover{
+        clip-path: polygon(0 45%, 100% 49%, 100% 100%, 0% 100%);
+      }
+    }
+  </style>
+  {% schema %}
+  {
+    "name": "Collection Hero",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Banner Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "title_image",
+        "label": "Title Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "title_image_mobile",
+        "label": "Title Image (mobile)"
+      },
+      {
+        "type": "richtext",
+        "id": "desc",
+        "label": "Description"
+      }
+    ]
+  }
+  {% endschema %}

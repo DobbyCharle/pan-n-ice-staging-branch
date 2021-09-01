@@ -1,0 +1,16 @@
+<section class="bg-custom-pink py-24">
+  <div class="flex w-full">
+    <img src="{{ section.settings.title | img_url: '800x' }}"
+          srcset="{{ section.settings.title | img_url: '800x' }} 1x,
+                  {{ section.settings.title | img_url: '800x', scale: 2 }} 2x,
+                  {{ section.settings.title | img_url: '800x', scale: 3 }} 3x"
+          loading="lazy" alt=""
+          class="block mx-auto h-20 w-80 mb-20">
+  </div>
+  {% include 'product-howtouse-desktop' %}
+  {% include 'product-howtouse-mobile' %}
+  <div class="hidden md:flex flex-row justify-center mt-14">
+    <a href="{{ section.settings.cta_url_left}}" class="uppercase text-white tracking-wider underline hover:no-underline px-3" style="font-family:'Vag';">{{ section.settings.cta_left}}</a>
+    <a href="{{ section.settings.cta_url_right}}" class="uppercase text-white tracking-wider underline hover:no-underline px-3" style="font-family:'Vag';">{{ section.settings.cta_right}}</a>
+  </div>
+</section>

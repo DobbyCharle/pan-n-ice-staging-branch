@@ -1,0 +1,302 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+{% assign product_title_image = product.metafields.my_fields.title_image %}
+{% assign product_description = product.metafields.my_fields.custom_description %}
+
+<div class="bg-custom-pink">
+<section class="max-width-1600 section-padding-x mx-auto pt-5 | md:pt-48">
+  <div class="grid grid-cols-1 md:grid-cols-2">
+    {% comment %} product gallery {% endcomment %}
+    <div>
+      <div class="relative">
+        <div class="product-gallery mx-auto flex">
+          {% for image in product.images %}
+              <img src="{{ image.src | img_url: 'large' }}" alt="{{ image.alt | escape }}" class="object-contain">
+          {% endfor %} 
+        </div>
+      </div>
+    </div>
+    <div class="px-5 mt-7 md:mt-0 flex flex-col items-start">
+      {% comment %} product title {% endcomment %}
+      {% if product_title_image != blank %}
+        <img src="{{product_title_image | img_url: '1200x360'}}" alt="{{product_title_image.alt}}" class="transform scale-75 object-contain h-24 w-430px | md:transform-none"/>
+      {% else %}
+        <h1 class="text-white md:stroke-2 md:stroke-black text-xl md:text-3xl lg:text-6xl" style="font-family: 'Vag';">{{ product.title }}</h1>
+      {% endif %}
+      {% comment %} variants {% endcomment %}
+      <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+        <select name="id" id="productSelect" class="invisible hidden">
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              <option value="{{ variant.id }}">
+                {{ variant.title }} - {{ variant.price | money_with_currency }}
+              </option>
+            {% else %}
+              <option disabled="disabled">
+                {{ variant.title }} - sold out
+              </option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        
+        {% comment %} label / input {% endcomment %}
+        <div class="flex mt-5 items-end">
+          <div class="flex flex-col">
+            <label class="mb-2 text-white text-sm | md:text-lg" for="Quantity">Quantity</label>
+            <div class="border-4 border-custom-blue rounded-lg py-1 flex justify-between items-center">
+              <input type="button" value="-" class="minus bg-transparent text-white text-3xl px-2">
+              <input type="number" step="1" min="1" max="" id="Quantity" name="quantity" value="1" title="Qty" class="bg-transparent text-white w-24 text-xl block text-center" size="4" pattern="" inputmode="">
+              <input type="button" value="+" class="plus bg-transparent text-white text-3xl px-2">
+            </div>
+          </div>
+          
+          <span class="text-white ml-5 pb-2 text-3xl | md:text-4xl" style="font-family: 'Vag';">
+            {{ current_variant.price | money }}
+          </span>
+        </div>
+        {% comment %} short description {% endcomment %}
+        {% if product_description != blank %}
+          <div class="text-white my-10 whitespace-pre-line text-sm | md:max-w-md"> {{ product_description }} </div>
+        {% else %}
+          <div class="text-white my-10 whitespace-pre-line text-sm | md:max-w-md"> {{ product.description }} </div>
+        {% endif %}
+        
+
+        <button type="submit" name="add" id="AddToCart" class="flex flex-col justify-center items-center rounded-xl bg-white hover:bg-primary border-custom-blue border-4 text-custom-pink hover:text-white px-6 h-14 text-center uppercase mt-2" style="font-family:'Vag';">Add to cart</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% include 'product-bothtogether' %}
+{% include 'product-features' %}
+{% include 'product-howtouse' %}
+{% comment %}
+{% include 'product-refill' %}
+{% endcomment %}
+{% include 'product-recommended' %}
+{% include 'product-reviews' %}
+
+</div>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+<script>
+   $(document).ready(function(){
+    $('.product-gallery').slick({
+      infinite: true,
+      dots: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      prevArrow: $('.prev'),
+      nextArrow: $('.next')
+    });
+  });
+</script>
+
+<style>
+  .slick-dots {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 12px 0;
+    list-style-type: none;
+  }
+  .slick-dots li {
+    margin: 0 0.25rem;
+  }
+  .slick-dots button {
+    display: block;
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: none;
+    border-radius: 100%;
+    background-color: white;
+    text-indent: -9999px;
+  }
+  .slick-dots li.slick-active button {
+    background-color: #41B6E6;
+  }
+</style>
+
+<script>
+  function wcqib_refresh_quantity_increments() {
+    jQuery("div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)").each(function(a, b) {
+        var c = jQuery(b);
+        c.addClass("buttons_added"), c.children().first().before('<input type="button" value="-" class="minus" />'), c.children().last().after('<input type="button" value="+" class="plus" />')
+    })
+  }
+  String.prototype.getDecimals || (String.prototype.getDecimals = function() {
+      var a = this,
+          b = ("" + a).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+      return b ? Math.max(0, (b[1] ? b[1].length : 0) - (b[2] ? +b[2] : 0)) : 0
+  }), jQuery(document).ready(function() {
+      wcqib_refresh_quantity_increments()
+  }), jQuery(document).on("updated_wc_div", function() {
+      wcqib_refresh_quantity_increments()
+  }), jQuery(document).on("click", ".plus, .minus", function() {
+      var a = jQuery(this).closest(".quantity").find(".qty"),
+          b = parseFloat(a.val()),
+          c = parseFloat(a.attr("max")),
+          d = parseFloat(a.attr("min")),
+          e = a.attr("step");
+      b && "" !== b && "NaN" !== b || (b = 0), "" !== c && "NaN" !== c || (c = ""), "" !== d && "NaN" !== d || (d = 0), "any" !== e && "" !== e && void 0 !== e && "NaN" !== parseFloat(e) || (e = 1), jQuery(this).is(".plus") ? c && b >= c ? a.val(c) : a.val((b + parseFloat(e)).toFixed(e.getDecimals())) : d && b <= d ? a.val(d) : b > 0 && a.val((b - parseFloat(e)).toFixed(e.getDecimals())), a.trigger("change")
+  });
+</script>
+
+
+{% comment %} schema start {% endcomment %}
+{% schema %}
+  {
+    "name": "product",
+    "settings": [
+      {
+      "type": "header",
+      "content": "events - how to use"
+      },
+      {
+        "type": "image_picker",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "cta_left",
+        "label": "CTA Left"
+      },
+      {
+        "type": "url",
+        "id": "cta_url_left",
+        "label": "CTA Link Left"
+      }
+      ,
+      {
+        "type": "text",
+        "id": "cta_right",
+        "label": "CTA Right"
+      },
+      {
+        "type": "url",
+        "id": "cta_url_right",
+        "label": "CTA Link Right"
+      },
+      {
+        "type": "header",
+        "content": "product refill"
+      },
+      {
+        "type": "image_picker",
+        "id": "refill_title",
+        "label": "Title Image"
+      },
+      {
+        "type": "text",
+        "id": "tagline",
+        "label": "Tagline"
+      },
+      {
+        "type": "text",
+        "id": "cta",
+        "label": "CTA"
+      },
+      {
+        "type": "url",
+        "id": "ctaurl",
+        "label": "CTA URL"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "header",
+        "content": "buy together"
+      },
+      {
+        "type": "product",
+        "id": "productone",
+        "label": "First Product"
+      },
+      {
+        "type": "product",
+        "id": "producttwo",
+        "label": "Second Product"
+      },
+      {
+        "type": "header",
+        "content": "product reviews"
+      },
+      {
+        "type": "image_picker",
+        "id": "reviews_title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "reviews_cta",
+        "label": "CTA"
+      },
+      {
+        "type": "url",
+        "id": "cta_url",
+        "label": "CTA Link"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "desc",
+            "label": "desc"
+          }
+        ]
+      },
+      {
+        "type": "review_item",
+        "name": "Review Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "name",
+            "label": "Name"
+          },
+          {
+            "type": "text",
+            "id": "date",
+            "label": "date"
+          },
+          {
+            "type": "range",
+            "id": "stars",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "default": 5,
+            "label": "Stars"
+          },
+          {
+            "type": "text",
+            "id": "review",
+            "label": "Your Review"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

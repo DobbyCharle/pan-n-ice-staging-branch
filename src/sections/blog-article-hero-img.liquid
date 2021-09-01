@@ -1,0 +1,21 @@
+<div class="mt-16 mb-6">
+  <img src="{{ article.image | img_url: '1024x' }}"
+          srcset="{{ article.image | img_url: '1024x' }} 1x,
+                  {{ article.image | img_url: '1024x', scale: 2 }} 2x,
+                  {{ article.image | img_url: '1024x', scale: 3 }} 3x"
+          loading="lazy" alt=""
+          class="w-full object-cover">
+</div>
+
+{% schema %}
+{
+  "name": "Blog Article Hero Image",
+  "settings": [
+  {
+    "type": "image_picker",
+    "id": "image",
+    "label": "Image"
+  }
+ ]
+}
+{% endschema %}

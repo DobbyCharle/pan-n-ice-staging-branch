@@ -1,0 +1,68 @@
+<section class="bg-primary py-24">
+  <div class="flex w-full">
+    <img src="{{ section.settings.title | img_url: '800x' }}"
+          srcset="{{ section.settings.title | img_url: '800x' }} 1x,
+                  {{ section.settings.title | img_url: '800x', scale: 2 }} 2x,
+                  {{ section.settings.title | img_url: '800x', scale: 3 }} 3x"
+          loading="lazy" alt=""
+          class="block mx-auto">
+  </div>
+  {% include 'product-howtouse-desktop' %}
+  {% include 'product-howtouse-mobile' %}
+  <div class="hidden md:flex flex-row justify-center mt-14">
+    <a href="{{ section.settings.cta_url_left}}" class="uppercase text-white tracking-wider underline hover:no-underline px-3" style="font-family:'Vag';">{{ section.settings.cta_left}}</a>
+    <a href="{{ section.settings.cta_url_right}}" class="uppercase text-white tracking-wider underline hover:no-underline px-3" style="font-family:'Vag';">{{ section.settings.cta_right}}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Events - How To Use",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "cta_left",
+      "label": "CTA Left"
+    },
+    {
+      "type": "url",
+      "id": "cta_url_left",
+      "label": "CTA Link Left"
+    }
+    ,
+    {
+      "type": "text",
+      "id": "cta_right",
+      "label": "CTA Right"
+    },
+    {
+      "type": "url",
+      "id": "cta_url_right",
+      "label": "CTA Link Right"
+    }
+  ],
+  "max_blocks": 5,
+  "blocks":[
+  {
+    "type": "item",
+    "name": "Item",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "desc",
+        "label": "desc"
+      }
+    ]
+  }]
+}
+{% endschema %}

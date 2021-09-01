@@ -1,0 +1,98 @@
+<div class="hidden md:grid grid-cols-4 lg:grid-cols-6 container mx-auto">
+  {% for block in section.blocks %}
+  <div class="w-full mb-4">
+    <div class="w-full h-full flex flex-col items-center">
+      <img src="{{ block.settings.image | img_url: '600x' }}"
+        srcset="{{ block.settings.image | img_url: '600x' }} 1x,
+                {{ block.settings.image | img_url: '600x', scale: 2 }} 2x,
+                {{ block.settings.image | img_url: '600x', scale: 3 }} 3x"
+        loading="lazy" alt=""
+        class="object-contain lg:w-24 xl:w-40 h-full rounded-xl object-bottom">
+      <h4 class="px-4 text-white text-xl font-extrabold" style="font-family:'Vag';">X{{block.settings.title}}</h4>      
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="block md:hidden">
+  <div class="slick-wrapper">
+    <div id="slickFeature">
+      {% for block in section.blocks %}
+        <div class="w-full mb-4">
+          <div class="w-full h-full flex flex-col items-center">
+            <img src="{{ block.settings.image | img_url: '600x' }}"
+              srcset="{{ block.settings.image | img_url: '600x' }} 1x,
+                      {{ block.settings.image | img_url: '600x', scale: 2 }} 2x,
+                      {{ block.settings.image | img_url: '600x', scale: 3 }} 3x"
+              loading="lazy" alt=""
+              class="object-contain lg:w-24 xl:w-40 h-full rounded-xl object-bottom">
+            <h4 class="px-4 text-white text-xl font-extrabold" style="font-family:'Vag';">X{{block.settings.title}}</h4>      
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#slickFeature').slick({
+      rows: 1,
+      dots: true,
+      arrows: false,
+      infinite: true,
+      speed: 300,
+      slidesToScroll: 1,
+      responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 3,
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+      }
+    }
+    ]
+    });
+  });
+</script>
+
+
+<style>
+  #slickFeature .slick-dots {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 12px 0;
+  list-style-type: none;
+}
+#slickFeature .slick-dots li {
+  margin: 0 0.25rem;
+}
+#slickFeature .slick-dots button {
+  display: block;
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: none;
+  border-radius: 100%;
+  background-color: white;
+  text-indent: -9999px;
+}
+#slickFeature .slick-dots li.slick-active button {
+  background-color: #EF60A3;
+}
+</style>

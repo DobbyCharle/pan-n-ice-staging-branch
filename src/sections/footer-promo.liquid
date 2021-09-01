@@ -1,0 +1,65 @@
+<div style="background-color:{{section.settings.sec-color}}" class=" flex relative text-center items-center mx-auto px-3 h-14 " >
+  <div class="AnnouncmentSliderFooter w-full text-center  mx-auto">
+  {% for block in section.blocks %}
+  <p class="text-md lg:text-xl VentiBlack font-black text-white text-center uppercase w-full">{{block.settings.Announcement}}</p>
+  {% endfor %}
+</div>
+</div>
+
+<script>
+  $( document ).ready(function() {
+  $('.AnnouncmentSliderFooter').slick({
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            centerMode: true,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            Infinity: true,
+            arrows: false,
+            focusOnSelect: true
+});
+});
+  </script>
+  {% schema %}
+    {
+      "name": "Footer Promo Logos",
+      "settings": [
+      {
+        "type": "color",
+        "id": "sec-color",
+        "label": "Promo color",
+        "default": "#333333"
+      }
+    
+     ], 
+    "blocks": [
+      {
+        "type": "select",
+        "name": "Icons",
+        "settings": [    
+        {
+              "type": "textarea",
+              "id": "Announcement",
+              "default": "Announcement MSG!",
+              "label": "Welcome message"
+           }, 
+       
+         {
+           "id": "link",
+           "type": "url",
+            "label": "Button link"
+         }
+          
+        ]
+      }
+    ]
+    
+    }
+  {% endschema %}
+  
+  {% stylesheet %}
+  {% endstylesheet %}
+  
+  {% javascript %}
+  {% endjavascript %}
+  

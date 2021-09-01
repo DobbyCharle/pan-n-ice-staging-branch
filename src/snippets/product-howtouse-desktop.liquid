@@ -1,0 +1,15 @@
+<div class="hidden invisible md:visible md:flex container mx-auto">
+  {% for block in section.blocks %}
+    {% if block.type == "item" %}
+      <div class="w-1/3 lg:w-1/5 px-4">
+        <img src="{{ block.settings.image | img_url: '600x' }}"
+                srcset="{{ block.settings.image | img_url: '600x' }} 1x,
+                        {{ block.settings.image | img_url: '600x', scale: 2 }} 2x,
+                        {{ block.settings.image | img_url: '600x', scale: 3 }} 3x"
+                loading="lazy" alt=""
+                class="object-cover w-full">
+        <p class="text-white text-center">{{block.settings.desc}}</p>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

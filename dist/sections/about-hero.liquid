@@ -1,0 +1,76 @@
+{% assign background_image = section.settings.image %}
+{% assign title_image = section.settings.title_image %}
+
+<div class="Section_holder relative">
+<div class="events_hero_wrapper relative pt-12 bg-custom-pink">
+  <div class="max-width-1600 section-padding-x h-30vh w-full overflow-hidden flex relative gap-8 flex-col items-start | md:gap-5 md:h-900px md:flex-row md:items-center md:justify-between">
+    {% if title_image != blank %}
+      <img src="{{title_image | img_url: '400x140'}}" class="object-contain w-60 | md:w-72 | lg:w-430px lg:max-h-32"/>
+    {% endif %}
+
+    {% if background_image != blank %}
+      <img src="{{background_image | img_url:'1080x960'}}" alt="{{background_image.alt}}" class="object-contain w-64 h-56 mx-auto | md:mx-0 md:w-430px md:h-500px | lg:h-600px lg:w-650px"/>
+    {% endif %}
+    <a class="flex text-sm justify-center items-center mx-auto mt-16 w rounded-xl bg-white text-black w-44 h-14 text-center uppercase BtnTopBanner" style="font-family:'Vag';" href="{{section.settings.cta_url}}">{{section.settings.cta}}</a>
+  </div>
+</div>
+
+<div style="background-color:#41B6E6;" class="relative  pb-10 md:pb-20 pt:0 md:-mt-16">
+  <div class="px-10 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto text-left text-white font-extralight text-lg leading-8 | md:text-center" style="font-family:'Vag';">
+    {{ section.settings.desc }}
+  </div>
+</div>
+  
+</div>
+
+<style>
+  .events_hero_wrapper::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -5%;
+    left: -5%;
+    height: 320px;
+    background: #41b6e6;
+    -webkit-clip-path: ellipse(50% 60% at 50% 100%);
+    clip-path: ellipse(50% 60% at 50% 100%);
+  }
+  @media screen and (max-width:768px){
+    .events_hero_wrapper::after{
+      clip-path: ellipse(100% 25% at 53% 100%);
+      -webkit-clip-path: ellipse(100% 25% at 53% 100%);
+    }
+  }
+</style>
+{% schema %}
+{
+  "name": "Events Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "title_image",
+      "label": "Title Image"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "CTA"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Link"
+    }
+  ]
+}
+{% endschema %}

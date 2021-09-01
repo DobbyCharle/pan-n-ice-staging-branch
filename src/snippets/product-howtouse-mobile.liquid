@@ -1,0 +1,40 @@
+<div  class="block visible md:invisible md:hidden">
+  <div class="relative px-10">
+    <div class="prev-howtouse absolute">
+      {% include 'arrow-left-white' %}
+    </div>
+    <div class="next-howtouse absolute">
+      {% include 'arrow-right-white' %}
+    </div>
+    <div class="howtouse mx-auto flex">
+      {% for block in section.blocks %}
+        <div class="px-5">
+          <img src="{{ block.settings.image | img_url: '600x' }}"
+            srcset="{{ block.settings.image | img_url: '600x' }} 1x,
+                    {{ block.settings.image | img_url: '600x', scale: 2 }} 2x,
+                    {{ block.settings.image | img_url: '600x', scale: 3 }} 3x"
+            loading="lazy" alt=""
+            class="object-cover w-full">
+          <p class="text-white text-center">{{block.settings.desc}}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+<script>
+   $(document).ready(function(){
+    $('.howtouse').slick({
+      dots: false,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 1,
+      centerMode: false,
+      prevArrow: $('.prev-howtouse'),
+      nextArrow: $('.next-howtouse')
+    });
+  });
+</script>

@@ -1,0 +1,56 @@
+{%- assign productone = all_products[section.settings.productone] -%}
+{%- assign current_variant = productone.selected_or_first_available_variant -%}
+{%- assign featured_image = current_variant.featured_image | default: productone.featured_image -%}
+
+
+{%- assign producttwo = all_products[section.settings.producttwo] -%}
+{%- assign current_variant_two = producttwo.selected_or_first_available_variant -%}
+{%- assign featured_image_two = current_variant_two.featured_image | default: producttwo.featured_image -%}
+
+
+<section class="container mx-auto mt-20">
+  <div class="flex">
+    <div class="w-full lg:w-2/3 xl:w-1/2">
+      <h3 class="text-center text-white uppercase tracking-wider" style="font-family:'Vag';">Frequently bought together</h3>
+      <div class="flex justify-center items-center mt-5">
+        <span>
+          {% include 'bothtogether-one' %}
+        </span>
+        <span class="px-5 text-secondary text-5xl">+</span>
+        <span>
+          {% include 'bothtogether-two' %}
+        </span>
+        <span class="px-5 text-secondary text-5xl">=</span>
+        <span>
+            <span class="text-center text-white uppercase tracking-wider block text-2xl" style="font-family:'Vag';">£20</span>
+            <button class="flex flex-col justify-center items-center mx-auto rounded-xl bg-white hover:bg-primary border-secondary border-4 text-primary hover:text-white px-6 h-14 text-center uppercase mt-2" style="font-family:'Vag';">add both</button>
+        </span>
+      </div>
+    </div>
+    <div class="lg:w-1/3 xl:w-1/2 hidden lg:block">
+      <svg width="464" height="138" viewBox="0 0 464 138" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M312.863 0L328.059 43.2344L358.363 16.2344L312.863 0Z" fill="#743D90"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M453.387 97.724L422.093 99.9569C422.093 99.9569 423.979 115.777 429.369 121.089C434.76 126.4 453.114 130.523 453.114 130.523L453.387 97.724Z" fill="#41B6E6"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5462 63C10.5462 63 -1.54988 71.4491 0.227773 76.5C2.00543 81.5509 20.0487 90 20.0487 90L39 73.1384L10.5462 63Z" fill="#743D90"/>
+      </svg>        
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product - Buy Together",
+  "settings": [
+    {
+      "type": "product",
+      "id": "productone",
+      "label": "First Product"
+    },
+    {
+      "type": "product",
+      "id": "producttwo",
+      "label": "Second Product"
+    }
+  ]
+}
+{% endschema %}

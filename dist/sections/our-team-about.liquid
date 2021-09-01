@@ -1,0 +1,204 @@
+{% assign meet_the_team_heading = section.settings.meet_the_team_heading %}
+<div class="pt-24 pb-10 bg-custom-pink">
+  {% if meet_the_team_heading != blank %}
+    <img src="{{meet_the_team_heading | img_url: '600x168'}}" alt="{{meet_the_team_heading.alt}}" class="w-80 mx-auto mb-10 | md:w-430px"/>
+  {% endif %}
+  <div id="about_us_slide" class="splide max-w-7xl mx-auto pt-5">
+    <div class="splide__track pl-0">
+      <ul class="splide__list">
+        {% for block in section.blocks %}
+          <li class="splide__slide member_parent mx-auto text-center">
+            <img class="mx-auto main_Image_members w-60 h-60" src="{{block.settings.memberImage  | img_url: 'master' }}"/>
+            <div class="memberName_Rank flex flex-col justify-center pt-5">
+              <p class="text-white text-xl font-extralight" style="font-family:'Vag';">{{block.settings.mb_name}}</p>
+              <p class="text-white text-xl font-extralight" style="font-family:'Vag';">{{block.settings.mb_rank}}</p>
+            </div>
+          </li>
+        {%endfor%}
+      </ul>
+    </div>
+  </div>
+  {% comment %} image & link section {% endcomment %}
+  <div class="mt-7 | md:mt-16">
+    <div class="max-width-1600 section-padding-x no-padding-mobile grid grid-flow-row grid-cols-1 gap-6 | md:grid-cols-3 md:grid-flow-col md:gap-11">
+      {% for block in section.blocks %}
+        {% if block.type == "link" %}
+          {% assign block_image = block.settings.block_image %}
+          {% assign block_text = block.settings.block_text %}
+          {% assign block_link = block.settings.block_link %}
+  
+          <div class="w-full flex flex-col items-center">
+            {% if block_image != blank %}
+              <img src="{{block_image | img_url: '430x250'}}" class="w-full h-80 | md:rounded-xl md:h-64 object-cover"/>
+            {% endif %}
+            {% if block_link != blank %}
+              <a href="{{block_link}}" class="text-custom-pink font-extralight uppercase text-sm bg-white border-4 border-custom-blue rounded-xl w-4/5 py-2 text-center -mt-7 | md:w-4/5 md:text-lg | xl:text-2xl" style="font-family:'Vag';">
+                {% if block_text != blank %}
+                  {{block_text}}
+                {% else %}
+                   View Page 
+                {% endif %}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+    
+<style>
+  #about_us_slide .splide__arrow{
+    background: none;
+    transform: scale(1.5);
+  }
+  #about_us_slide .splide__arrow.splide__arrow--prev{
+    left: 0;
+  }
+  #about_us_slide .splide__arrow.splide__arrow--next{
+    right: 0;
+  }
+  #about_us_slide .splide__arrow svg path{
+    fill: white;
+  }
+</style>
+<script>
+  $(document).ready(function() {
+    if(document.querySelector("#about_us_slide") != null || document.querySelector("#about_us_slide") != undefined){
+      new Splide("#about_us_slide", {
+        type: "loop",
+        perPage: 4,
+        pagination: false,
+        arrows: true,
+        breakpoints: {
+          1200: {
+            perPage: 3
+          },
+          768: {
+            perPage: 1
+          }
+        }
+      }).mount();
+    }
+  });
+</script>
+  
+    {% schema %}
+    {
+      "name": "Meet the team section",
+      "settings": [
+      {
+        "type": "image_picker",
+        "id": "meet_the_team_heading",
+        "label": "Meet the team heading image"
+      },
+      {
+        "type": "color",
+        "id": "sec--bg-Color",
+        "label": "Section Background Color",
+        "default": "#e5e5e5"
+      },
+      {
+        "type": "image_picker",
+        "id": "slideImage2",
+        "label": "Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "slideImage3",
+        "label": "Text Outline Image"
+      },
+      {
+        "type": "text",
+        "id": "secTitle",
+        "default": "Heading",
+        "label": "Section Heading"
+     },
+     {
+      "type": "color",
+      "id": "Text-Color",
+      "label": "Text Headings Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "btn-bg-Color",
+      "label": "Button Background Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "BTN-Text-Color",
+      "label": "Button Text Color",
+      "default": "#e5e5e5"
+    },
+     {
+      "type": "collection",
+      "id": "feature_collection",
+      "label": "Featured collection"
+    }
+    
+     ], 
+"blocks": [
+  {
+    "type": "select",
+    "name": "Add Member",
+    "settings": [ 
+      {
+        "type": "image_picker",
+        "id": "memberImage",
+        "label": "Member Image 240 × 240 px"
+      },
+      {
+         "type": "text",
+         "id": "mb_name",
+         "default": "Member Name",
+         "label": "Member Name"
+      },
+      {
+        "type": "text",
+        "id": "mb_rank",
+        "default": "Member Rank",
+        "label": "Member Rank"
+     }
+    ]
+  },
+  {
+    "type": "link",
+    "name": "Link & image block",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "block_image",
+        "label": "Block Image"
+      },
+      {
+        "type": "text",
+        "id": "block_text",
+        "label": "Block Text"
+      },
+      {
+        "type": "url",
+        "id": "block_link",
+        "label": "Block Link"
+      }
+    ]
+  }
+],
+    "presets": [
+      {
+        "category": "Our Team",
+        "name": "Our Team",
+        "settings": {
+    }
+      }
+    ]
+    
+    }
+    {% endschema %}
+    
+    {% stylesheet %}
+    {% endstylesheet %}
+    
+    {% javascript %}
+    {% endjavascript %}

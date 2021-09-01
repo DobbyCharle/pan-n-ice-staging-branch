@@ -1,0 +1,53 @@
+<section class="pb-24 pt-16">
+  <div class="w-full mx-auto container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-14">
+    {% for block in section.blocks %}
+      <div class="service-square w-full">
+        <a href="{{block.settings.link}}" class="service-card-content absolute w-full h-full">
+          <img src="{{ block.settings.image | img_url: '1024x' }}"
+            srcset="{{ block.settings.image | img_url: '1024x' }} 1x,
+                    {{ block.settings.image | img_url: '1024x', scale: 2 }} 2x,
+                    {{ block.settings.image | img_url: '1024x', scale: 3 }} 3x"
+            loading="lazy" alt=""
+            class="object-cover w-full h-full rounded-xl">
+          <h4 class="absolute bottom-4 px-4 text-black text-2xl font-extrabold" style="font-family:'Vag';">{{block.settings.title}}</h4>      
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Services - items",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sectiontitle",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

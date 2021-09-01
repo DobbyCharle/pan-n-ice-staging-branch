@@ -1,0 +1,92 @@
+<section class="py-10 mx-auto bg-black">
+  <h1 class="text-center w-full mb-12 text-white font-black text-xl md:text-2xl tracking-wider uppercase" style="font-family:'Vag';">{{ section.settings.title }}Our clients</h1>
+
+
+  <div class="slick-clients mx-auto flex">
+    {% for block in section.blocks %}
+        <div class="px-2">
+          <img src="{{ block.settings.logoimage | img_url: '200x' }}"
+            srcset="{{ block.settings.logoimage | img_url: '200x' }} 1x,
+                    {{ block.settings.logoimage | img_url: '200x', scale: 2 }} 2x,
+                    {{ block.settings.logoimage | img_url: '200x', scale: 3 }} 3x"
+            loading="lazy" alt="{{block.settings.alt}}"
+            class="h-12 object-contain">
+        </div>
+      {% endfor %}
+  </div>
+
+
+</section>
+
+{% schema %}
+{
+  "name": "Events - Clients",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "CTA"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Link"
+    }
+  ],
+  "blocks":[
+  {
+    "type": "row",
+    "name": "Item",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "logoimage",
+      "label": "Select Logo"
+    },
+    {
+      "type": "text",
+      "id": "alt",
+      "label": "Alt"
+    }
+  ]
+  }
+  ]
+}
+{% endschema %}
+
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+<script>
+   $(document).ready(function(){
+    $('.slick-clients').slick({
+      dots: false,
+      infinite: true,
+      autoplay: true,
+      swipe:false,
+      slidesToShow: 1,
+      centerMode: false,
+      variableWidth: true,
+      prevArrow: $('.prev'),
+      nextArrow: $('.next'),
+      autoplaySpeed: 0,
+      speed: 8000,
+      cssEase:'linear',
+      infinite: true,
+      focusOnSelect: false,
+       
+    });
+  });
+</script>
+

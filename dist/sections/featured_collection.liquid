@@ -1,0 +1,139 @@
+<div class="relative">
+  <div class="bg-custom-blue h-1/2 w-150% absolute -left-1/4 -top-24 rounded-100% | md:h-full"></div>
+  <div class="bg-custom-blue flex flex-row items-center pb-10 | md:pb-56">
+    <div class="mr-10 z-10 hidden | md:block md:w-4/12 | lg:w-1/5">
+      <img src="{{section.settings.slideImage3 | img_url: '378x180'}}"/>
+    </div>
+    <div class="z-10 w-full pb-14 | md:pb-0 md:w-8/12 | lg:w-4/5">
+      <div id="featured_collection_slider" class="splide slideShowCollection">
+        <div class="splide__track">
+          {% if section.settings.feature_collection != blank %}
+            <ul class="splide__list">
+              {% for product in collections[section.settings.feature_collection].products %}
+                <li class="splide__slide text-center flex flex-col justify-between px-5">
+                  <a href="{{ product.url }}"> 
+                    <img class="mx-auto h-72 w-96 object-contain" src="{{ product.featured_image | img_url: '550x550' }}" />
+                  </a>
+                  <h1 class="text-27px text-white w-9/12 mx-auto text-center font-extralight" style="font-family:'Vag';">{{product.title}}</h1>
+                  <form method="post" action="/cart/add">
+                    <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                    <input type="hidden"  min="1" type="number" id="quantity" name="quantity" value="1"/>
+                    <input type="submit" value="Add To Bag" class="mt-5 font-bold text-custom-pink border-4 border-custom-pink px-7 py-2 rounded-xl" />
+                  </form>        
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %} 
+        </div>
+      </div>
+    </div> 
+</div>  
+  <script>
+    $(document).ready(function(){
+      if(document.querySelector("#featured_collection_slider") != null || document.querySelector("#featured_collection_slider") != undefined){
+        new Splide("#featured_collection_slider", {
+          type: "loop",
+          perPage: 3,
+          pagination: false,
+          arrows: true,
+          breakpoints: {
+            1200: {
+              perPage: 2
+            },
+            600: {
+              perPage: 1
+            }
+          }
+        }).mount();
+      }
+    });
+  </script>
+
+  <style>
+    #featured_collection_slider .splide__arrows .splide__arrow{
+      background: none;
+    }
+    #featured_collection_slider .splide__arrows .splide__arrow svg{
+      fill: #FFF;
+      transform: scale(1.5);
+    }
+    #featured_collection_slider .splide__arrows .splide__arrow.splide__arrow--prev svg{
+      fill: #FFF;
+      transform: scale(1.5) rotate(180deg);
+    }
+    @media screen and (min-width: 768px){
+      #featured_collection_slider .splide__arrows .splide__arrow{
+        display: none;
+      }
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Featured Collection",
+    "settings": [
+    {
+      "type": "color",
+      "id": "sec--bg-Color",
+      "label": "Section Background Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "image_picker",
+      "id": "slideImage2",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "slideImage3",
+      "label": "Text Outline Image"
+    },
+    {
+      "type": "text",
+      "id": "secTitle",
+      "default": "Heading",
+      "label": "Section Heading"
+   },
+   {
+    "type": "color",
+    "id": "Text-Color",
+    "label": "Text Headings Color",
+    "default": "#e5e5e5"
+  },
+  {
+    "type": "color",
+    "id": "btn-bg-Color",
+    "label": "Button Background Color",
+    "default": "#e5e5e5"
+  },
+  {
+    "type": "color",
+    "id": "BTN-Text-Color",
+    "label": "Button Text Color",
+    "default": "#e5e5e5"
+  },
+   {
+    "type": "collection",
+    "id": "feature_collection",
+    "label": "Featured collection"
+  }
+  
+   ], 
+  "presets": [
+    {
+      "category": "Featured Collection",
+      "name": "Featured Collection",
+      "settings": {
+  }
+    }
+  ]
+  
+  }
+  {% endschema %}
+  
+  {% stylesheet %}
+  {% endstylesheet %}
+  
+  {% javascript %}
+  {% endjavascript %}

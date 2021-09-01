@@ -1,0 +1,176 @@
+<div class="main-holder-acbtl text-center " style="background-color: {{section.settings.background_color-btn-sec}};">
+  {% for block in section.blocks %}
+    {% if block.type == 'block-1' %}  
+      <div class="flex flex-col justify-between items-start w-full mx-auto bg-custom-purple | md:bg-custom-blue md:flex-row md:items-end">
+        <div class="relative rounded-3xl bg-white p-5 -ml-10 z-10 h-80 w-11/12 | md:h-550px md:w-500px | lg:w-650px lg:h-650px ">
+          <img data-aos="fade-right" class="imageleft{{forloop.index}} h-full w-full rounded-3xl object-cover" src="{{block.settings.image-left  | img_url: '1300x1300'}}"/>
+        </div>
+        <div class="text_image_block_1 flex-1 flex flex-col justify-center containerleft{{forloop.index}} relative bg-custom-purple px-12 py-12 | lg:px-16 lg:py-16 | xl:px-20 xl:py-28"> 
+          <img class="bg-cover image-right-texting w-430px" src="{{block.settings.image-right-texting | img_url: 'master'}}"/>
+          <h2 class="text-white text-left text-sm pb-5 pt-5 w-full | md:text-xl | lg:w-8/12 | xl:max-w-lg" style="font-family:'Vag';">{{block.settings.text-title-actbl}}</h2>
+          <a href="{{block.settings.book_now_button_link}}" class="uppercase text-white text-center bg-custom-pink font-extralight py-3 w-40 rounded-xl" href=""  style="font-family:'Vag';">{{block.settings.btn-title-actbl-left}}</a>
+          </div>  
+      </div>
+    {% endif %} 
+
+
+    {% if block.type == 'block-2' %}
+      <div class="flex flex-col justify-between items-center w-full mx-auto relative | md:flex-row md:py-28">
+        <div class="w-full flex flex-col items-start px-12 containerleft{{forloop.index}} relative | md:px-0 md:pl-8 md:w-1/2 | lg:pl-20">
+          <img class="object-contain h-36 w-52 | md:w-56 | lg:w-72 " src="{{block.settings.image-logo-left | img_url: 'master'}}"/>
+          <div class="flex flex-row items-center gap-7 mt-1">
+            <a href="{{block.settings.london_link}}" class="font-extralight rounded-lg py-1 px-3 transition duration-200 text-white border-2 text-lg border-white | md:text-xl md:border-transparent | lg:text-27px | hover:border-white"  style="font-family:'Vag';">{{block.settings.london_option}}</a>
+            <a href="{{block.settings.manchester_link}}" class="font-extralight rounded-lg py-1 px-3 transition duration-200 text-white border-2 border-transparent text-lg | md:text-xl | lg:text-27px | hover:border-white" style="font-family:'Vag';">{{block.settings.manchester_option}}</a>
+          </div>
+          <div class="flex">
+            <a href="{{block.settings.find_us_link}}" class="text-sm bg-custom-blue text-white uppercase font-extralight rounded-lg mb-8 mt-10 px-10 py-3 | md:py-1 md:px-6 md:mt-5 md:mb-0 md:ml-4" style="font-family:'Vag';">{{block.settings.find_us_text}}</a>
+          </div>
+        </div> 
+        <div class="relative rounded-3xl bg-white p-5 z-10 h-80 w-11/12 order-first -mr-32 | md:-mr-10 md:order-none md:h-550px md:w-500px md:absolute md:right-0 md:top-11 | lg:w-650px lg:h-650px">
+          <img data-aos="fade-left" class="imageleft{{forloop.index}} h-full w-full rounded-3xl object-cover" src="{{block.settings.image-right  | img_url: '1300x1300'}}"/>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}  
+</div>
+ 
+ 
+  <style>
+    .text_image_block_1::before{
+      background: #743D90;
+      position: absolute;
+      left: -100%;
+      top: 0;
+      content: "";
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  {% schema %}
+    {
+      "name":  "Image With Text",
+      "settings": [
+        {
+          "type": "color",
+          "id": "background_color-btn-sec",
+          "label": "Background color Section",
+          "default": "#ffffff"
+        },
+        {
+          "type":"text",
+          "id": "title-actbl",
+          "label": "Full Section Title",
+          "default": "Section Title"
+        }   
+      ],
+      "blocks":[
+        {
+          "type": "block-1",
+          "name": "Image on Left txt",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "image-left",
+              "label": "Logo image"
+            },
+            {
+              "type": "image_picker",
+              "id": "image-right-texting",
+              "label": "Logo image"
+            },
+            {
+              "type": "image_picker",
+              "id": "image-left-text1",
+              "label": "Logo image"
+            },
+            {
+              "type": "text",
+              "id": "text-title-actbl",
+              "default": "Title",
+              "label": "Title Text container"
+            },
+            {
+              "type": "text",
+              "id": "btn-title-actbl-left",
+              "default": "Book Now",
+              "label": "Book Now Button text"
+            },
+            {
+              "type": "url",
+              "id": "book_now_button_link",
+              "label": "Book Now Button Link"
+            },
+            {
+              "type": "color",
+              "id": "backgroundBtn",
+              "label": "Background Color Button",
+              "default": "#ff4ff4"
+            }
+          ]
+        },
+        {
+          "type": "block-2",
+          "name": "Image on Right txt",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "image-right",
+              "label": "Right image"
+            },
+            {
+              "type": "image_picker",
+              "id": "image-logo-left",
+              "label": "Logo image"
+            },
+            {
+              "type": "text",
+              "id": "find_us_text",
+              "default": "Find Us",
+              "label": "Find Us Button text"
+            },
+            {
+              "type": "url",
+              "id": "find_us_link",
+              "label": "Find Us Button link"
+            },
+            {
+              "type": "text",
+              "id": "london_option",
+              "default": "London",
+              "label": "London Button Option"
+            },
+            {
+              "type": "text",
+              "id": "london_link",
+              "label": "London Button Link"
+            },
+            {
+              "type": "text",
+              "id": "manchester_option",
+              "default": "Manchester",
+              "label": "Manchester Button Option"
+            },
+            {
+              "type": "text",
+              "id": "manchester_link",
+              "label": "Manchester Button Link"
+            }
+          ]
+        }
+      ],  
+      "presets": [
+        {
+          "category": "Image With Text",
+          "name": "Image and",
+          "settings": {
+        }
+      }
+    ]
+  }
+  {% endschema %}
+  
+  {% stylesheet %}
+  {% endstylesheet %}
+  
+  {% javascript %}
+  {% endjavascript %}

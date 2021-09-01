@@ -1,0 +1,24 @@
+<div style="padding-top: 100px;" class="mainHolderContact w-full">
+
+  <div class="page-heading flex justify-center"> 
+    
+   <img class='contactUsTitle' src="{{ 'contact.png' | asset_img_url: 'master' }}" alt="">
+  
+  </div>
+  <div class="PageHolderMain flex-col md:flex-row md:mt-24  mx-auto flex flex-row justify-center w-full min-h-full max-w-5xl pt-10 pb-5">
+<div class="pageContent md:mb-0 mb-12 md:mr-10 md:w-1/2">
+ <p class="text-white px-4 text-xl" style="font-family:'Vag';">{{page_description | newline_to_br }}</p>
+</div>
+<div class="formHolder px-4 md:w-1/2">
+{% form 'contact' %} 
+  {% if form.posted_successfully %} Thank you for your contact {% endif %}
+  {{ form.errors | default_errors }}
+  <input class="pb-3 p-3 placeholder-black" style="font-family:'Vag';" type="text" id="ContactFormName" name="contact[name]" placeholder="Full name*">
+  <input class="pb-3 p-3 placeholder-black" style="font-family:'Vag';" type="email" id="ContactFormEmail" name="contact[email]" placeholder="Email*">
+  <input class="pb-3 p-3 placeholder-black" style="font-family:'Vag';" type="tel" id="ContactFormPhone" name="contact[phone]" placeholder="Subject*">
+  <textarea class="pb-3 p-3 placeholder-black" style="font-family:'Vag';" rows="10" id="ContactFormMessage" name="contact[body]" placeholder="Message*"></textarea>
+  <input type="submit" value="send" style="font-family:'Vag';" class="sendFormButton">
+{% endform %} 
+</div>
+</div>
+</div>

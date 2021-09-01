@@ -1,0 +1,57 @@
+  
+  <div style="background-color: {{section.settings.background_color-btn-sec}}; padding-bottom: 100px !important;" class="Blocks_Section py-10 flex flex-row items-center justify-evenly">
+    {% for block in section.blocks %}
+    <div class="Block_Info w-2/6 relative p-5">
+      <img class="w-full" src="{{block.settings.image | img_url: 'master'}}"/>
+      <a class="btnBlocks absolute text-2xl leading-7 uppercase" href="">Button</a>
+    </div>
+    {%endfor%}
+  </div>
+  
+  {% schema %}
+  {
+    "name":  "Image With Text",
+  "settings": [
+    {
+   "type": "color",
+   "id": "background_color-btn-sec",
+   "label": "Background Section Color",
+   "default": "#ffffff"
+}
+    
+],
+    "blocks":[
+      {
+        "type": "block-1",
+        "name": "Image on Left txt",
+        "settings": [
+      {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Logo image 486px Height 324px"
+        }
+  
+
+
+        ]
+      }
+
+    ],
+    
+"presets": [
+{
+  "category": "Image With Text",
+  "name": "Image and",
+  "settings": {
+}
+}
+]
+
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

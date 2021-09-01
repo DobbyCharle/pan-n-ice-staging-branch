@@ -1,0 +1,193 @@
+{%- assign productone = all_products[section.settings.productone] -%}
+{%- assign current_variant = productone.selected_or_first_available_variant -%}
+{%- assign featured_image = current_variant.featured_image | default: productone.featured_image -%}
+
+
+{%- assign producttwo = all_products[section.settings.producttwo] -%}
+{%- assign current_variant_two = producttwo.selected_or_first_available_variant -%}
+{%- assign featured_image_two = current_variant_two.featured_image | default: producttwo.featured_image -%}
+
+
+<section class="max-width-1600 section-padding-x pt-20">
+  <div class="flex">
+    <div class="w-full lg:w-2/3 xl:w-1/2">
+      <h3 class="text-center text-white uppercase tracking-wider" style="font-family:'Vag';">Frequently bought together</h3>
+      <div class="flex justify-center items-center mt-5">
+        {% assign product_one_price = 0 %}
+        {% assign product_two_price = 0 %}
+        <span>
+          {% comment %} product one {% endcomment %}
+          <img src="{{ featured_image_two | img_url: '360x360' }}"
+          loading="lazy" alt=""
+          class="block mx-auto object-contain h-16 w-16 | md:w-36 md:h-36">
+          <span class="text-white uppercase text-sm tracking-wider text-center w-full block" style="font-family:'Vag';">{{ producttwo.title | default: onboarding_title }}</span>
+          
+          <form action="/cart/add" method="post" enctype="multipart/form-data">
+            {% unless producttwo.has_only_default_variant %}
+              {% for option in producttwo.options_with_values %}
+                <div class="selector-wrapper js invisible hidden">
+                  <label for="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}">
+                    {{ option.name }}
+                  </label>
+      
+                  <select
+                    id="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}"
+                    data-single-option-selector
+                    data-index="option{{ option.position }}">
+                    {% for value in option.values %}
+                      <option
+                        value="{{ value | escape }}"
+                        {% if option.selected_value == value %}selected="selected"{% endif %}>
+                          {{ value }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            {% endunless %}
+      
+            <select name="id" class="no-js invisible hidden" data-product-select>
+              {% for variant in producttwo.variants %}
+                <option
+                  {% if variant == producttwo.selected_or_first_available_variant %}selected="selected"{% endif %}
+                  {% unless variant.available %}disabled="disabled"{% endunless %}
+                  value="{{ variant.id }}">
+                    {{ variant.title }}
+                </option>
+              {% endfor %}
+            </select>
+      
+            <input class="invisible hidden" type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1">
+      
+            <div data-price-wrapper>
+              <span data-product-price class="text-white uppercase text-sm tracking-wider text-center w-full block" style="font-family:'Vag';">
+                {{ current_variant.price | default: '1999' | money }}
+                {% assign product_one_price = current_variant.price %}
+              </span>
+      
+              <div class="invisible hidden">
+                {% if producttwo.compare_at_price_max > producttwo.price %}
+                <s data-compare-price>
+                  {% if current_variant.compare_at_price > current_variant.price %}
+                    {{ current_variant.compare_at_price | money }}
+                    {% assign product_one_price = current_variant.compare_at_price %}
+                  {% endif %}
+                </s>
+                {% endif %}
+              </div>
+            </div>
+      
+            <button
+            class="invisible hidden"
+              type="submit"
+              name="add"
+              data-add-to-cart
+              {% unless producttwo.available %}disabled="disabled"{% endunless %}
+              {% if section_onboarding %}disabled="disabled"{% endif %}>
+                <span data-add-to-cart-text>
+                  {% if producttwo.available %}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {% else %}
+                    {{ 'products.product.sold_out' | t }}
+                  {% endif %}
+                </span>
+            </button>
+          </form>
+        </span>
+        <span class="px-5 text-custom-blue text-5xl">+</span>
+        <span>
+          {% comment %} product twp {% endcomment %}
+          <img src="{{ featured_image_two | img_url: '360x360' }}"
+          loading="lazy" alt=""
+          class="block mx-auto h-16 w-16 object-contain | md:w-36 md:h-36">
+          <span class="text-white uppercase text-sm tracking-wider text-center w-full block" style="font-family:'Vag';">{{ productone.title | default: onboarding_title }}</span>
+          
+          <form action="/cart/add" method="post" enctype="multipart/form-data">
+            {% unless productone.has_only_default_variant %}
+              {% for option in productone.options_with_values %}
+                <div class="selector-wrapper js invisible hidden">
+                  <label for="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}">
+                    {{ option.name }}
+                  </label>
+      
+                  <select
+                    id="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}"
+                    data-single-option-selector
+                    data-index="option{{ option.position }}">
+                    {% for value in option.values %}
+                      <option
+                        value="{{ value | escape }}"
+                        {% if option.selected_value == value %}selected="selected"{% endif %}>
+                          {{ value }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            {% endunless %}
+      
+            <select name="id" class="no-js invisible hidden" data-product-select>
+              {% for variant in productone.variants %}
+                <option
+                  {% if variant == productone.selected_or_first_available_variant %}selected="selected"{% endif %}
+                  {% unless variant.available %}disabled="disabled"{% endunless %}
+                  value="{{ variant.id }}">
+                    {{ variant.title }}
+                </option>
+              {% endfor %}
+            </select>
+      
+            <input class="invisible hidden" type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1">
+      
+            <div data-price-wrapper>
+              <span data-product-price class="text-white uppercase text-sm tracking-wider text-center w-full block" style="font-family:'Vag';">
+                {{ current_variant.price | default: '1999' | money }}
+                {% assign product_two_price = current_variant.price %}
+              </span>
+      
+              <div class="invisible hidden">
+                {% if productone.compare_at_price_max > productone.price %}
+                <s data-compare-price>
+                  {% if current_variant.compare_at_price > current_variant.price %}
+                    {{ current_variant.compare_at_price | money }}
+                    {% assign product_two_price = current_variant.compare_at_price %}
+                  {% endif %}
+                </s>
+                {% endif %}
+              </div>
+            </div>
+      
+            <button
+            class="invisible hidden"
+              type="submit"
+              name="add"
+              data-add-to-cart
+              {% unless productone.available %}disabled="disabled"{% endunless %}
+              {% if section_onboarding %}disabled="disabled"{% endif %}>
+                <span data-add-to-cart-text>
+                  {% if productone.available %}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {% else %}
+                    {{ 'products.product.sold_out' | t }}
+                  {% endif %}
+                </span>
+            </button>
+          </form>
+        </span>
+        <span class="px-5 text-custom-blue text-5xl">=</span>
+        {% assign calculation = product_one_price | plus: product_two_price %}
+        <span>
+            <span class="text-center text-white uppercase tracking-wider block text-base | md:text-2xl" style="font-family:'Vag';">{{ calculation | money }}</span>
+            <button class="flex flex-col justify-center items-center text-sm mx-auto rounded-xl bg-white hover:bg-primary border-custom-blue border-4 text-custom-pink hover:text-white px-6 h-14 text-center uppercase mt-2 | md:text-lg" style="font-family:'Vag';">add both</button>
+        </span>
+      </div>
+    </div>
+    <div class="lg:w-1/3 xl:w-1/2 hidden lg:block">
+      <svg width="464" height="138" viewBox="0 0 464 138" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M312.863 0L328.059 43.2344L358.363 16.2344L312.863 0Z" fill="#743D90"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M453.387 97.724L422.093 99.9569C422.093 99.9569 423.979 115.777 429.369 121.089C434.76 126.4 453.114 130.523 453.114 130.523L453.387 97.724Z" fill="#41B6E6"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5462 63C10.5462 63 -1.54988 71.4491 0.227773 76.5C2.00543 81.5509 20.0487 90 20.0487 90L39 73.1384L10.5462 63Z" fill="#743D90"/>
+      </svg>        
+    </div>
+  </div>
+</section>

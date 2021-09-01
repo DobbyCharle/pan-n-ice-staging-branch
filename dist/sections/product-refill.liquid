@@ -1,0 +1,70 @@
+<section class="relative bg-secondary">
+    <div class="flex flex-col testimonial-row md:flex-row w-full  mx-auto">
+      <div class="w-full md:w-1/2 lg:w-1/3 flex items-center px-10 lg:px-0 order-2 md:order-1 refill-curve bg-secondary relative -top-10 md:-top-0 md:left-14 2xl:left-24">
+        <div
+          class="pr-0 lg:pl-12 w-full py-10"
+        >
+          <div class="flex w-full mt-5">
+            <img src="{{ section.settings.title | img_url: '800x' }}"
+                  srcset="{{ section.settings.title | img_url: '800x' }} 1x,
+                          {{ section.settings.title | img_url: '800x', scale: 2 }} 2x,
+                          {{ section.settings.title | img_url: '800x', scale: 3 }} 3x"
+                  loading="lazy" alt=""
+                  class="block lg:w-3/4">
+          </div>
+          <h1 class="text-white text-xl lg:text-2xl 2xl:text-3xl font-extrabold leading-none tracking-wider mt-3" style="font-family:'Vag';">
+            {{ section.settings.tagline }}
+          </h1>
+          <div class="flex">
+            <a class="flex flex-col justify-center items-center mt-5 lg:mt-10 rounded-xl bg-white hover:bg-primary text-primary hover:text-white px-10 h-14 text-center uppercase" style="font-family:'Vag';" href="{{section.settings.ctaurl}}">{{section.settings.cta}}</a>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="w-full md:w-1/2 lg:w-2/3 order-1 md:order-2">
+        <img src="{{ section.settings.image | img_url: '800x' }}"
+          srcset="{{ section.settings.image | img_url: '800x' }} 1x,
+                  {{ section.settings.image | img_url: '800x', scale: 2 }} 2x,
+                  {{ section.settings.image | img_url: '800x', scale: 3 }} 3x"
+          loading="lazy" alt=""
+          class="block w-full h-full object-cover object-top clip-refill">
+      </div>
+    </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Product - Refill",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "title",
+      "label": "Title Image"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "CTA"
+    },
+    {
+      "type": "url",
+      "id": "ctaurl",
+      "label": "CTA URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ]
+}
+{% endschema %}
+
+

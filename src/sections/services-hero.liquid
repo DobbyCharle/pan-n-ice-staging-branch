@@ -1,0 +1,50 @@
+<div class="events-hero-wrapper">
+  <img src="{{ section.settings.image | img_url: '1024x' }}"
+    srcset="{{ section.settings.image | img_url: '1024x' }} 1x,
+            {{ section.settings.image | img_url: '1024x', scale: 2 }} 2x,
+            {{ section.settings.image | img_url: '1024x', scale: 3 }} 3x"
+    loading="lazy" alt=""
+    class="object-cover w-full h-full">
+</div>
+
+<div class="relative bg-white pb-10 md:pb-20 pt:0 md:-mt-16">
+  <div class="px-10 w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto">
+    <h1 class="text-center w-full mb-8 text-black font-black text-3xl md:text-5xl font-sans mt-16 md:mt-0" style="font-family:'Vag';">{{ section.settings.title }}</h1>
+    <div class="text-center font-extralight text-lg leading-8" style="font-family:'Vag';">{{ section.settings.desc }}</div>
+    <a class="flex justify-center items-center mx-auto mt-16 rounded-xl bg-black hover:bg-white border-black border text-white hover:text-black w-full h-14 text-center uppercase | md:w-72" style="font-family:'Vag';" href="{{section.settings.cta_url}}">{{section.settings.cta}}</a>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Services Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "CTA"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Link"
+    }
+  ]
+}
+{% endschema %}

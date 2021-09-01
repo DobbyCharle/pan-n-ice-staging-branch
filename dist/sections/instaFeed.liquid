@@ -1,0 +1,56 @@
+<div class="Feed_holder pt-6 pb-5 text-center bg-custom-blue | md:pt-52 | lg:pt-64">
+  {% if section.settings.secTitle != blank %}
+  <h1>{{section.settings.secTitle}}</h1>
+  {%else%}
+  <img class="w-40 mx-auto" src="{{section.settings.logo | img_url: 'master'}}"/>
+{%endif%}
+{% include 'followUs' %}
+  <div id="insta-feed"></div>
+</div>
+{% schema %}
+  {
+    "name": "Instagram Feed",
+    "settings": [
+    {
+      "type": "color",
+      "id": "sec--bg-Color",
+      "label": "Section Background Color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "secTitle",
+      "default": "Heading",
+      "label": "Section Heading"
+   },
+   {
+    "type": "text",
+    "id": "instaHandle",
+    "default": "Heading",
+    "label": "Section Heading"
+ }
+   
+  
+   ], 
+  "presets": [
+    {
+      "category": "Social Platforms",
+      "name": "Instagram Feed",
+      "settings": {
+  }
+    }
+  ]
+  
+  }
+  {% endschema %}
+  
+  {% stylesheet %}
+  {% endstylesheet %}
+  
+  {% javascript %}
+  {% endjavascript %}

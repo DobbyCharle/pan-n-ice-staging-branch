@@ -1,0 +1,30 @@
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      global_carousel__ctrl();
+    });
+    global_carousel__ctrl = () => {
+      if(document.querySelector("#homeSplide") != null || document.querySelector("#homeSplide") != undefined){
+        new Splide("#homeSplide", {
+          type: "loop",
+          pagination: false
+        }).mount();
+      }
+      if(document.querySelector("#twoSlideSplide") != null || document.querySelector("#twoSlideSplide") != undefined){
+        new Splide("#twoSlideSplide", {
+          perMove: 2,
+          perPage: 2,
+          type: "loop",
+          pagination: false,
+          breakpoints: {
+            768: {
+              perPage: 1,
+              perMove: 1,
+              arrows: false,
+              pagination: true
+            }
+          }
+        }).mount();
+      }
+    }
+  </script>
